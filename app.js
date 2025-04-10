@@ -1,5 +1,5 @@
 // Конфигурация Google Sheets
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzz9Sawvd12eWPW2v1dxadalZQ1GIWEfuTgrJ1VqiTBKzOfLY52PeQlU05OhVepd7C1/exec'; // Замените на ваш URL
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwLQ3GtAqrapCBm7wfoxnLiw6Icablr72-LgQC3wY19ZZcQgE_E86Z4-tMWwCYjK70F/exec'; // Замените на ваш URL
 const categories = {
     expense: ['Еда', 'Одежда', 'Дом', 'Транспорт', 'Связь', 'Другое'],
     income: ['Зарплата', 'Аванс', '% по вкладу', 'Другое']
@@ -68,60 +68,60 @@ function updateCategories() {
 }
 
 async function saveTransaction() {
-    const type = document.querySelector('.segment.active').getAttribute('data-type');
-    const amount = document.getElementById('amount').value;
-    const category = document.getElementById('category').value;
-    const date = document.getElementById('date').value;
-    const description = document.getElementById('description').value || '';
-    
-    if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-      alert('Пожалуйста, введите корректную сумму');
-      return;
-    }
-    
-    if (!date) {
-      alert('Пожалуйста, укажите дату');
-      return;
-    }
-    
-    const data = {
-      type,
-      amount: parseFloat(amount),
-      category,
-      date,
-      description
-    };
-    
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        // Добавляем режим CORS
-        mode: 'cors'
-      });
-      
-      if (!response.ok) {
-        throw new Error('Ошибка сети');
-      }
-      
-      const result = await response.json();
-      
-      if (result.status === 'success') {
-        alert('Данные сохранены');
-        document.getElementById('amount').value = '';
-        document.getElementById('description').value = '';
-        loadTransactions();
-      } else {
-        throw new Error(result.message || 'Ошибка сохранения');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert(`Произошла ошибка: ${error.message}`);
-    }
+  const type = document.querySelector('.segment.active').getAttribute('data-type');
+  const amount = document.getElementById('amount').value;
+  const category = document.getElementById('category').value;
+  const date = document.getElementById('date').value;
+  const description = document.getElementById('description').value || '';
+  
+  if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+    alert('Пожалуйста, введите корректную сумму');
+    return;
   }
+  
+  if (!date) {
+    alert('Пожалуйста, укажите дату');
+    return;
+  }
+  
+  const data = {
+    type,
+    amount: parseFloat(amount),
+    category,
+    date,
+    description
+  };
+  
+  try {
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // Добавляем режим CORS
+      mode: 'cors'
+    });
+    
+    if (!response.ok) {
+      throw new Error('Ошибка сети');
+    }
+    
+    const result = await response.json();
+    
+    if (result.status === 'success') {
+      alert('Данные сохранены');
+      document.getElementById('amount').value = '';
+      document.getElementById('description').value = '';
+      loadTransactions();
+    } else {
+      throw new Error(result.message || 'Ошибка сохранения');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert(`Произошла ошибка: ${error.message}`);
+  }
+}
 
 async function loadTransactions() {
     try {
