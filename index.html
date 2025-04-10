@@ -2,42 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" 
-          content="width=device-width, 
-                   initial-scale=1.0, 
-                   maximum-scale=1.0, 
-                   minimum-scale=1.0, 
-                   user-scalable=no, 
-                   viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Финансы</title>
-    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="screen active" id="mainScreen">
-        <div class="input-group">
-            <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Сумма, например 12,34" required>
-            <select id="type">
-                <option value="Доход">Доход</option>
-                <option value="Расход">Расход</option>
-            </select>
-            <select id="category"></select>
-            <button onclick="app.addTransaction()">Добавить</button>
-        </div>
-    </div>
-
-    <div class="screen" id="statsScreen">
-        <select id="period" onchange="app.loadStats()">
-            <option value="month">Месяц</option>
-            <option value="year">Год</option>
-            <option value="all">Все время</option>
+        <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Сумма, например 12,34" required>
+        <select id="type">
+            <option>Доход</option>
+            <option selected>Расход</option>
         </select>
-        <div id="stats"></div>
-    </div>
-
-    <div class="nav">
-        <div class="nav-btn active" onclick="app.showScreen('mainScreen')">➕</div>
-        <div class="nav-btn" onclick="app.showScreen('statsScreen')">📊</div>
+        <select id="category"></select>
+        <button onclick="app.addTransaction()">Добавить</button>
     </div>
 
     <script src="app.js"></script>
