@@ -28,25 +28,40 @@ const app = {
   
     addTransaction: async function() {
       const amountInput = document.getElementById('amount');
+      const submitButton = document.querySelector('button');
       
       try {
+        // Блокировка кнопки
+        submitButton.disabled = true;
+        submitButton.textContent = 'Добавляем...';
+        submitButton.style.opacity = '0.7';
+
         if (!this.validateInput(amountInput.value)) {
           this.showError('Некорректная сумма');
           return;
         }
-  
+
         const transaction = {
           date: new Date().toISOString(),
           type: document.getElementById('type').value,
           category: document.getElementById('category').value,
           amount: parseFloat(amountInput.value).toFixed(2)
         };
-  
+
         await this.sendData(transaction);
         amountInput.value = '';
         
+        // Успешное добавление
+        submitButton.textContent = '✅ Добавлено!';
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
       } catch (error) {
         this.showError(error.message);
+      } finally {
+        // Всегда разблокируем кнопку
+        submitButton.disabled = false;
+        submitButton.textContent = 'Добавить';
+        submitButton.style.opacity = '1';
       }
     },
   

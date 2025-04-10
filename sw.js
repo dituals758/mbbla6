@@ -1,4 +1,4 @@
-const CACHE_NAME = 'finance-v1';
+const CACHE_NAME = 'finance-v2';
 const ASSETS = [
   'https://dituals758.github.io/mbbla6/',
   'https://dituals758.github.io/mbbla6/index.html',

@@ -149,3 +149,15 @@ button:active {
         font-size: 15px;
     }
 }
+button:disabled {
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+  }
+  
+  button.success {
+    background: #34c759 !important;
+  }
+  
+  button.error {
+    background: #ff3b30 !important;
+  }
