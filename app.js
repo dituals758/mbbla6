@@ -53,7 +53,7 @@ const app = {
         
         // Успешное добавление
         submitButton.textContent = '✅ Добавлено!';
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
       } catch (error) {
         this.showError(error.message);
@@ -105,7 +105,7 @@ const app = {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
       event.currentTarget.classList.add('active');
   },
-  
+
   setupUpdateChecks: function() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready.then(registration => {

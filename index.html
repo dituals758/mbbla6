@@ -51,7 +51,7 @@
               channel.port1.onmessage = (event) => {
                 const newVersion = event.data.version.replace('finance-', '');
                 
-                if(confirm(`Доступна новая версия (${newVersion})! Обновить сейчас?`)) {
+                if(confirm(`Доступна новая версия ${newVersion}! Обновить сейчас?`)) {
                   window.location.reload();
                 }
               };
