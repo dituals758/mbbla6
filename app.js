@@ -130,6 +130,79 @@ const app = {
         this.currentVersion = event.data.version;
       };
     }
+  },
+  loadStats: async function() {
+    try {
+      const period = document.getElementById('period').value;
+      const response = await fetch(`${this.SCRIPT_URL}?period=${period}`);
+      const stats = await response.json();
+      
+      this.updateTotalCards(stats.total);
+      this.renderCategoryChart(stats.categories);
+      this.renderCategoryList(stats.categories);
+    } catch (error) {
+      console.error('Ошибка загрузки статистики:', error);
+    }
+  },
+
+  updateTotalCards: function(totals) {
+    document.getElementById('total-income').textContent = 
+      `${this.formatCurrency(totals['Доход'] || 0)} ₽`;
+    document.getElementById('total-expense').textContent = 
+      `${this.formatCurrency(totals['Расход'] || 0)} ₽`;
+  },
+
+  renderCategoryChart: function(categories) {
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+    
+    // Уничтожаем предыдущий график
+    if(this.chart) this.chart.destroy();
+    
+    this.chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(categories['Расход']),
+        datasets: [{
+          data: Object.values(categories['Расход']),
+          backgroundColor: [
+            '#34C759', '#2DAE4E', '#269F43', '#1F9038', '#18812D'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  },
+
+  renderCategoryList: function(categories) {
+    const container = document.getElementById('categoryStats');
+    const maxAmount = Math.max(...Object.values(categories['Расход']));
+    
+    container.innerHTML = Object.entries(categories['Расход'])
+      .sort((a, b) => b[1] - a[1])
+      .map(([category, amount]) => `
+        <div class="category-item">
+          <div class="category-name">${category}</div>
+          <div class="category-progress">
+            <div class="category-progress-bar" 
+                 style="width: ${(amount / maxAmount) * 100}%"></div>
+          </div>
+          <div class="category-amount">${this.formatCurrency(amount)} ₽</div>
+        </div>
+      `).join('');
+  },
+
+  formatCurrency: function(amount) {
+    return parseFloat(amount || 0).toLocaleString('ru-RU', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   }
   };
   

@@ -173,3 +173,72 @@
       font-size: 15px;
     }
   }
+  /* Статистика */
+.stats-header {
+  padding: 16px;
+  background: var(--background);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.total-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.total-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--input-background);
+}
+
+.total-card.income .amount {
+  color: var(--accent-color);
+}
+
+.total-card.expense .amount {
+  color: var(--error-color);
+}
+
+.chart-container {
+  padding: 16px;
+  height: 300px;
+}
+
+.category-list {
+  padding: 0 16px 80px;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: var(--input-background);
+  border-radius: 8px;
+}
+
+.category-progress {
+  flex-grow: 1;
+  height: 8px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+  margin: 0 12px;
+  overflow: hidden;
+}
+
+.category-progress-bar {
+  height: 100%;
+  background: var(--accent-color);
+  transition: width 0.3s ease;
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  .category-progress {
+    background: rgba(255,255,255,0.1);
+  }
+}
