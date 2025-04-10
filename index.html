@@ -11,58 +11,61 @@
   <meta name="apple-mobile-web-app-title" content="Финансы">
   <link rel="apple-touch-icon" href="icon-iphone.png">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div class="screen active" id="mainScreen">
-        <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Введите сумму, например 12,34" required>
-        <select id="type">
-            <option>Доход</option>
-            <option selected>Расход</option>
-        </select>
-        <select id="category"></select>
-        <button onclick="app.addTransaction()">Добавить</button>
-    </div>
-    <div class="nav">
-      <div class="nav-btn active" onclick="app.showScreen('mainScreen')">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M4 11H10V21H4V11ZM14 3H20V21H14V3Z" fill="currentColor"/>
-          </svg>
-          <span>Главная</span>
-      </div>
-      <div class="nav-btn" onclick="app.showScreen('statsScreen')">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M3 13H11V21H3V13ZM13 3H21V21H13V3Z" fill="currentColor"/>
-          </svg>
-          <span>Статистика</span>
-      </div>
+  <div class="screen active" id="mainScreen">
+    <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Введите сумму, например 12,34" required>
+    <select id="type">
+      <option>Доход</option>
+      <option selected>Расход</option>
+    </select>
+    <select id="category"></select>
+    <button onclick="app.addTransaction(event)">Добавить</button>
   </div>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').then(reg => {
-        reg.onupdatefound = () => {
-          const newWorker = reg.installing;
-          newWorker.onstatechange = () => {
-            if (newWorker.state === 'installed') {
-              // Получаем новую версию
-              const channel = new MessageChannel();
-              newWorker.postMessage('getVersion', [channel.port2]);
-              
-              channel.port1.onmessage = (event) => {
-                const newVersion = event.data.version.replace('finance-', '');
-                
-                if(confirm(`Доступна новая версия приложения ${newVersion}! Обновить сейчас?`)) {
-                  window.location.reload();
-                }
-              };
-            }
-          };
-        };
-      });
-    }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>    
+
+  <div class="screen" id="statsScreen">
+    <div class="stats-header">
+      <select id="period">
+        <option value="week">Неделя</option>
+        <option value="month">Месяц</option>
+      </select>
+    </div>
+    <div class="total-cards">
+      <div class="total-card income">
+        <div class="title">Доходы</div>
+        <div class="amount" id="total-income">0 ₽</div>
+      </div>
+      <div class="total-card expense">
+        <div class="title">Расходы</div>
+        <div class="amount" id="total-expense">0 ₽</div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="categoryChart"></canvas>
+    </div>
+    <div class="category-list" id="categoryStats"></div>
+  </div>
+
+  <div class="nav">
+    <div class="nav-btn active" onclick="app.showScreen('mainScreen')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M4 11H10V21H4V11ZM14 3H20V21H14V3Z" fill="currentColor"/>
+      </svg>
+      <span>Главная</span>
+    </div>
+    <div class="nav-btn" onclick="app.showScreen('statsScreen')">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 13H11V21H3V13ZM13 3H21V21H13V3Z" fill="currentColor"/>
+      </svg>
+      <span>Статистика</span>
+    </div>
+  </div>
+
+  <div id="stats-loader" class="loader" style="display: none;"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
