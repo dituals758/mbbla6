@@ -35,36 +35,46 @@ const app = (() => {
         const amountInput = document.getElementById('amount');
         const errorMessage = document.createElement('div');
         errorMessage.className = 'error-message';
-        errorMessage.textContent = 'Введите сумму';
         
         document.querySelectorAll('.error-message').forEach(el => el.remove());
         
-        if (!amountInput.value || parseFloat(amountInput.value) <= 0) {
-            errorMessage.textContent = amountInput.value ? 
-                'Сумма должна быть больше нуля' : 
-                'Введите сумму';
+        try {
+            // Валидация
+            if (!amountInput.value || parseFloat(amountInput.value) <= 0) {
+                throw new Error(amountInput.value ? 
+                    'Сумма должна быть больше нуля' : 
+                    'Введите сумму');
+            }
+    
+            const transaction = {
+                date: new Date().toISOString(),
+                type: document.getElementById('type').value,
+                category: document.getElementById('category').value,
+                amount: parseFloat(amountInput.value).toFixed(2)
+            };
+    
+            // Отправка запроса
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(transaction)
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Ошибка сервера');
+            }
+    
+            amountInput.value = '';
             
+        } catch (error) {
+            errorMessage.textContent = error.message;
             amountInput.parentNode.insertBefore(errorMessage, amountInput.nextSibling);
             errorMessage.style.display = 'block';
             amountInput.focus();
-            return;
-        }
-
-        const transaction = {
-            date: new Date().toISOString(),
-            type: document.getElementById('type').value,
-            category: document.getElementById('category').value,
-            amount: amountInput.value
-        };
-
-        try {
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(transaction)
-            });
-            amountInput.value = '';
-        } catch (error) {
-            alert('Ошибка сохранения: ' + error.message);
+            console.error('Ошибка:', error);
         }
     }
 
