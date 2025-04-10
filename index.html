@@ -37,22 +37,30 @@
           <span>Статистика</span>
       </div>
   </div>
-    <script>
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('sw.js').then(reg => {
-            reg.onupdatefound = () => {
-              const newWorker = reg.installing;
-              newWorker.onstatechange = () => {
-                if (newWorker.state === 'installed') {
-                  if (confirm('Доступно обновление (${CACHE_NAME})! Обновить сейчас?')) {
-                    window.location.reload();
-                  }
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(reg => {
+        reg.onupdatefound = () => {
+          const newWorker = reg.installing;
+          newWorker.onstatechange = () => {
+            if (newWorker.state === 'installed') {
+              // Получаем новую версию
+              const channel = new MessageChannel();
+              newWorker.postMessage('getVersion', [channel.port2]);
+              
+              channel.port1.onmessage = (event) => {
+                const newVersion = event.data.version.replace('finance-', '');
+                
+                if(confirm(`Доступна новая версия (${newVersion})! Обновить сейчас?`)) {
+                  window.location.reload();
                 }
               };
-            };
-          });
-        }
-        </script>
+            }
+          };
+        };
+      });
+    }
+    </script>
     <script src="app.js"></script>
 </body>
 </html>

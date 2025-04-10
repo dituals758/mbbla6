@@ -104,6 +104,32 @@ const app = {
       // Обновить навигацию
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
       event.currentTarget.classList.add('active');
+  },
+  
+  setupUpdateChecks: function() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(registration => {
+        // Проверка при загрузке приложения
+        registration.update();
+        
+        // Отправляем версию в Service Worker
+        this.getCacheVersion();
+      });
+    }
+  },
+
+  getCacheVersion: function() {
+    if ('serviceWorker' in navigator) {
+      const channel = new MessageChannel();
+      navigator.serviceWorker.controller.postMessage(
+        'getVersion',
+        [channel.port2]
+      );
+      
+      channel.port1.onmessage = (event) => {
+        this.currentVersion = event.data.version;
+      };
+    }
   }
   };
   

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'finance-v6';
+const CACHE_NAME = 'finance-v6.1';
 const ASSETS = [
   'https://dituals758.github.io/mbbla6/',
   'https://dituals758.github.io/mbbla6/index.html',
@@ -54,5 +54,11 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('message', (event) => {
   if (event.data === 'update') {
     self.registration.update();
+  }
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'getVersion') {
+    event.ports[0].postMessage({version: CACHE_NAME});
   }
 });
