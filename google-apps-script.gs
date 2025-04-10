@@ -1,33 +1,22 @@
 const SHEET_ID = '1eWIIK9DU80lgjg8bet-N98XPpuk2MCn7YAGKyMdREpE'; // Замените на ID вашей таблицы
 const SHEET_NAME = 'Transactions'; // Название листа
 
+// В файле Google Apps Script замените doPost на это:
 function doPost(e) {
-  try {
-    const data = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-    
-    const lastRow = sheet.getLastRow();
-    const newRow = lastRow + 1;
-    
-    sheet.getRange(newRow, 1).setValue(data.type === 'income' ? 'Доход' : 'Расход');
-    sheet.getRange(newRow, 2).setValue(data.category);
-    sheet.getRange(newRow, 3).setValue(data.amount);
-    sheet.getRange(newRow, 4).setValue(new Date(data.date));
-    sheet.getRange(newRow, 5).setValue(data.description || '');
-    sheet.getRange(newRow, 6).setValue(new Date());
-    
-    // Добавляем CORS заголовки
-    return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
-      .setMimeType(ContentService.MimeType.JSON)
-      .addHeader('Access-Control-Allow-Origin', '*')
-      .addHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-      .addHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
-  } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({status: 'error', message: error.message}))
-      .setMimeType(ContentService.MimeType.JSON)
-      .addHeader('Access-Control-Allow-Origin', '*');
-  }
+  const data = e.parameter; // Получаем данные как параметры URL
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  sheet.appendRow([
+    data.type === 'income' ? 'Доход' : 'Расход',
+    data.category,
+    data.amount,
+    new Date(data.date),
+    data.description || '',
+    new Date()
+  ]);
+  
+  // Простейший ответ без CORS заголовков
+  return ContentService.createTextOutput("Успешно сохранено");
 }
 
 function doGet(e) {
