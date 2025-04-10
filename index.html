@@ -6,6 +6,25 @@
     <title>Финансы</title>
     <link rel="manifest" href="manifest.json">
     <style>
+
+html {
+    touch-action: pan-x pan-y;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overscroll-behavior: contain;
+}
+
+body {
+    /* Добавьте к существующим стилям */
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+input, select, button {
+    /* Добавьте к существующим стилям */
+    font-size: 16px !important;
+}
 * {
     box-sizing: border-box;
     margin: 0;
@@ -149,12 +168,29 @@ button:active {
         font-size: 15px;
     }
 }
+input:invalid {
+    border-color: #ff3b30;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    25% { transform: translateX(4px); }
+    50% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.error-message {
+    color: #ff3b30;
+    font-size: 13px;
+    padding: 4px 16px;
+    display: none;
+}
     </style>
 </head>
 <body>
     <!-- Главный экран -->
     <div class="screen active" id="mainScreen">
-        <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Сумма">
+        <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Сумма, например 12,34" required>
         <select id="type">
             <option value="Доход">Доход</option>
             <option value="Расход">Расход</option>
@@ -203,20 +239,46 @@ button:active {
         }
 
         async function addTransaction() {
-            const transaction = {
-                date: new Date().toISOString(),
-                type: document.getElementById('type').value,
-                category: document.getElementById('category').value,
-                amount: document.getElementById('amount').value
-            };
+    const amountInput = document.getElementById('amount');
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'error-message';
+    errorMessage.textContent = 'Пожалуйста, введите сумму';
+    
+    // Удаляем предыдущие сообщения об ошибках
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    
+    if (!amountInput.value) {
+        amountInput.parentNode.insertBefore(errorMessage, amountInput.nextSibling);
+        errorMessage.style.display = 'block';
+        amountInput.focus();
+        return;
+    }
+    
+    if (parseFloat(amountInput.value) <= 0) {
+        errorMessage.textContent = 'Сумма должна быть больше нуля';
+        amountInput.parentNode.insertBefore(errorMessage, amountInput.nextSibling);
+        errorMessage.style.display = 'block';
+        amountInput.focus();
+        return;
+    }
 
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(transaction)
-            });
-            
-            document.getElementById('amount').value = '';
-        }
+    const transaction = {
+        date: new Date().toISOString(),
+        type: document.getElementById('type').value,
+        category: document.getElementById('category').value,
+        amount: amountInput.value
+    };
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(transaction)
+        });
+        amountInput.value = '';
+    } catch (error) {
+        alert('Ошибка сохранения: ' + error.message);
+    }
+}
 
         async function loadStats() {
             const response = await fetch(SCRIPT_URL);
@@ -239,6 +301,16 @@ button:active {
         }
 
         init();
+
+        // Блокировка двойного тапа для масштабирования
+document.addEventListener('dblclick', (e) => {
+    e.preventDefault();
+}, { passive: false });
+
+// Блокировка жестов пинч-зум
+document.addEventListener('touchstart', (e) => {
+    if(e.touches.length > 1) e.preventDefault();
+}, { passive: false });
     </script>
 </body>
 </html>
