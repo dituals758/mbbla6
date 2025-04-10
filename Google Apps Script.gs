@@ -1,37 +1,68 @@
+const SHEET_ID = '1eWIIK9DU80lgjg8bet-N98XPpuk2MCn7YAGKyMdREpE'; // Замените на ID вашей таблицы
+const SHEET_NAME = 'Transactions'; // Название листа
+
 function doPost(e) {
-  try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Data') || 
-                 SpreadsheetApp.getActiveSpreadsheet().insertSheet('Data');
-    
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Тип операции', 'Категория', 'Сумма', 'Timestamp']);
-    }
-    
     const data = JSON.parse(e.postData.contents);
-    const timestamp = new Date();
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
     
-    sheet.appendRow([
-      data.operationType,
-      data.category,
-      data.amount,
-      timestamp
-    ]);
+    const lastRow = sheet.getLastRow();
+    const newRow = lastRow + 1;
     
-    // Возвращаем простой текст вместо JSON
-    return ContentService.createTextOutput("Данные сохранены");
+    sheet.getRange(newRow, 1).setValue(data.type === 'income' ? 'Доход' : 'Расход');
+    sheet.getRange(newRow, 2).setValue(data.category);
+    sheet.getRange(newRow, 3).setValue(data.amount);
+    sheet.getRange(newRow, 4).setValue(new Date(data.date));
+    sheet.getRange(newRow, 5).setValue(data.description || '');
+    sheet.getRange(newRow, 6).setValue(new Date());
     
-  } catch(e) {
-    return ContentService.createTextOutput("Ошибка: " + e.message);
-  }
+    return ContentService.createTextOutput(JSON.stringify({status: 'success'})).setMimeType(ContentService.MimeType.JSON);
 }
 
 function doGet(e) {
-  const response = {
-    status: 'API работает',
-    timestamp: new Date().toISOString()
-  };
-  
-  return ContentService.createTextOutput(JSON.stringify(response))
-    .setMimeType(ContentService.MimeType.JSON)
-    .addHttpHeader('Access-Control-Allow-Origin', '*');
+    const action = e.parameter.action;
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
+    const data = sheet.getDataRange().getValues();
+    
+    if (action === 'getTransactions') {
+        // Пропускаем заголовки и берем последние 50 записей
+        const transactions = data.slice(1).slice(-50).reverse().map(row => ({
+            type: row[0] === 'Доход' ? 'income' : 'expense',
+            category: row[1],
+            amount: row[2],
+            date: row[3].toISOString(),
+            description: row[4]
+        }));
+        
+        return ContentService.createTextOutput(JSON.stringify(transactions)).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    if (action === 'getStats') {
+        const period = e.parameter.period || 'month';
+        const now = new Date();
+        let startDate;
+        
+        if (period === 'week') {
+            startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+        } else if (period === 'month') {
+            startDate = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+        } else { // year
+            startDate = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+        }
+        
+        const filteredData = data.slice(1).filter(row => new Date(row[3]) >= startDate);
+        
+        const stats = {
+            totalIncome: filteredData
+                .filter(row => row[0] === 'Доход')
+                .reduce((sum, row) => sum + row[2], 0),
+            totalExpense: filteredData
+                .filter(row => row[0] === 'Расход')
+                .reduce((sum, row) => sum + row[2], 0)
+        };
+        
+        return ContentService.createTextOutput(JSON.stringify(stats)).setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({error: 'Invalid action'}))
+        .setMimeType(ContentService.MimeType.JSON);
 }
