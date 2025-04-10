@@ -6,6 +6,13 @@ const app = (() => {
         'Расход': ['Жильё', 'Транспорт', 'Еда', 'Одежда', 'Развлечения', 'Связь', 'Личные', 'Другое']
     };
 
+    const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(transaction),
+        redirect: 'follow' // Добавить для обработки редиректов
+    });
+
     function init() {
         updateCategories();
         document.getElementById('type').addEventListener('change', updateCategories);
