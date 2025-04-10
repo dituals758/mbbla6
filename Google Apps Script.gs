@@ -35,6 +35,3 @@ function doGet(e) {
     .setMimeType(ContentService.MimeType.JSON)
     .addHttpHeader('Access-Control-Allow-Origin', '*');
 }
-
-
-
