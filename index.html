@@ -14,11 +14,15 @@
     <div class="container">
         <header class="app-header">
             <h1>Финансы</h1>
-            <button id="sync-btn" class="icon-button" aria-label="Синхронизировать">
-                <svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
-            </button>
+            <div class="header-actions">
+                <button id="refresh-btn" class="icon-button" aria-label="Обновить" title="Проверить обновления">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </button>
+            </div>
         </header>
-        
+        <div id="toast" class="toast hidden"></div>
         <div class="tabs">
             <button class="tab-button active" data-tab="add">Добавить</button>
             <button class="tab-button" data-tab="history">История</button>
@@ -33,7 +37,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <input type="number" id="amount" placeholder="Сумма" class="input-field" min="0" step="0.01">
+                    <input type="number" id="amount" placeholder="Сумма" class="input-field">
                 </div>
                 
                 <div class="form-group">
@@ -47,29 +51,18 @@
                 </div>
                 
                 <div class="form-group">
-                    <input type="text" id="description" placeholder="Описание (необязательно)" class="input-field" maxlength="100">
+                    <input type="text" id="description" placeholder="Описание (необязательно)" class="input-field">
                 </div>
                 
-                <button id="save-btn" class="primary-button">
-                    <span class="button-text">Сохранить</span>
-                    <span class="spinner hidden"></span>
-                </button>
+                <button id="save-btn" class="primary-button">Сохранить</button>
             </div>
         </div>
         
         <div class="tab-content" id="history-tab">
             <div class="card">
-                <div class="card-header">
-                    <h2 class="section-title">Последние операции</h2>
-                    <button id="clear-history" class="icon-button small danger" aria-label="Очистить историю">
-                        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12z"/></svg>
-                    </button>
-                </div>
+                <h2 class="section-title">Последние операции</h2>
                 <div id="transactions-list" class="transactions-list">
-                    <div class="empty-state">
-                        <svg width="48" height="48" viewBox="0 0 24 24"><path fill="var(--text-secondary)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                        <p>Нет данных</p>
-                    </div>
+                    <div class="empty-state">Нет данных</div>
                 </div>
             </div>
         </div>
@@ -113,13 +106,7 @@
         </div>
     </div>
     
-    <div id="toast" class="toast hidden"></div>
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="lib/storage.js"></script>
-    <script src="lib/charts.js"></script>
-    <script src="lib/utils.js"></script>
-    <script src="lib/api.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
