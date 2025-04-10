@@ -1,4 +1,4 @@
-const CACHE_NAME = 'finance-v9.1';
+const CACHE_NAME = 'finance-v9.2';
 const ASSETS = [
   '/mbbla6/',
   '/mbbla6/index.html',
@@ -34,10 +34,10 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
   // Не кэшировать API Google
-  if (url.origin === 'https://script.google.com') {
-    event.respondWith(fetch(event.request));
-    return;
-  }
+  // if (url.origin === 'https://script.google.com') {
+  //   event.respondWith(fetch(event.request));
+  //   return;
+  // }
 
   event.respondWith(
     caches.match(event.request)
