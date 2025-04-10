@@ -6,67 +6,149 @@
     <title>Финансы</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        /* CSS стили */
-        * {
-            box-sizing: border-box;
-            font-family: -apple-system, sans-serif;
-        }
-        
-        body {
-            margin: 0;
-            padding: 20px 15px 70px;
-            background: #f5f5f7;
-        }
-        
-        .screen {
-            display: none;
-        }
-        
-        .active {
-            display: block;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            -webkit-appearance: none;
-        }
-        
-        button {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            width: 100%;
-            font-size: 17px;
-            margin-top: 10px;
-        }
-        
-        .nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            background: white;
-            border-top: 1px solid #ddd;
-            padding: 10px 0;
-        }
-        
-        .nav-btn {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            color: #666;
-        }
-        
-        .nav-btn.active {
-            color: #007AFF;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    margin: 0;
+    padding: 16px 16px 72px;
+    min-height: 100vh;
+}
+
+.screen {
+    display: none;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.screen.active {
+    display: block;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+input, select {
+    width: 100%;
+    height: 44px;
+    padding: 0 16px;
+    font-size: 16px;
+    border: 1px solid #c7c7cc;
+    border-radius: 10px;
+    background: #ffffff;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 4px 0;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #007AFF;
+    box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+}
+
+select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+button {
+    width: 100%;
+    height: 50px;
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 8px;
+}
+
+button:active {
+    opacity: 0.8;
+}
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #e5e5ea;
+    display: flex;
+    padding: 8px 0;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.nav-btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    color: #8e8e93;
+    font-size: 28px;
+    line-height: 1;
+    transition: color 0.2s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.nav-btn.active {
+    color: #007AFF;
+}
+
+#stats {
+    margin-top: 20px;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #666668;
+}
+
+.stat-value {
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+@media (max-width: 380px) {
+    body {
+        padding: 12px 12px 72px;
+    }
+    
+    input, select {
+        font-size: 15px;
+    }
+}
     </style>
 </head>
 <body>
