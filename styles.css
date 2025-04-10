@@ -1,260 +1,131 @@
 :root {
-  --primary-color: #34C759;
-  --primary-hover: #2DBE50;
-  --secondary-color: #007AFF;
-  --danger-color: #FF3B30;
-  --background-color: #F2F2F7;
+  /* Обновленная цветовая палитра */
+  --primary-color: #4CAF50; /* Более мягкий зеленый */
+  --primary-hover: #43A047; 
+  --secondary-color: #2196F3; /* Яркий синий */
+  --danger-color: #F44336; /* Яркий красный */
+  --background-color: #F5F5F5; /* Светло-серый фон */
   --card-color: #FFFFFF;
-  --text-primary: #000000;
-  --text-secondary: #8E8E93;
-  --border-color: #D1D1D6;
+  --text-primary: #212121; /* Темно-серый вместо черного */
+  --text-secondary: #757575;
+  --border-color: #E0E0E0; /* Более светлая граница */
   --input-bg: #FFFFFF;
-  --input-border: #D1D1D6;
-  --input-text: #000000;
-  --input-placeholder: #8E8E93;
+  --input-border: #BDBDBD;
+  --input-text: #212121;
+  --input-placeholder: #9E9E9E;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  
+  /* Новые акцентные цвета */
+  --accent-purple: #9C27B0;
+  --accent-amber: #FFC107;
 }
 
-/* Темная тема */
+/* Темная тема - теперь более контрастная */
 @media (prefers-color-scheme: dark) {
   :root {
-    --secondary-color: #0A84FF;
-    --danger-color: #FF453A;
-    --background-color: #1C1C1E;
-    --card-color: #2C2C2E;
-    --text-primary: #FFFFFF;
-    --text-secondary: #8E8E93;
-    --border-color: #38383A;
-    --input-bg: #2C2C2E;
-    --input-border: #38383A;
+    --primary-color: #66BB6A;
+    --primary-hover: #57A55A;
+    --secondary-color: #42A5F5;
+    --danger-color: #EF5350;
+    --background-color: #121212; /* Глубокий темный фон */
+    --card-color: #1E1E1E; /* Не чисто черный */
+    --text-primary: #E0E0E0; /* Светло-серый */
+    --text-secondary: #9E9E9E;
+    --border-color: #424242;
+    --input-bg: #2D2D2D;
+    --input-border: #555555;
     --input-text: #FFFFFF;
-    --input-placeholder: #8E8E93;
+    --input-placeholder: #9E9E9E;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    
+    /* Акценты для темной темы */
+    --accent-purple: #BA68C8;
+    --accent-amber: #FFD54F;
   }
 }
 
-/* Базовые стили */
-body {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-primary);
-  line-height: 1.5;
-}
-
-/* Контейнер и карточки */
-.container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-.card {
-  background-color: var(--card-color);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Заголовок */
-.app-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.app-header h1 {
-  font-weight: 500;
-  font-size: clamp(24px, 5vw, 28px); /* Адаптивный размер */
-  margin: 0;
-}
-
-/* Вкладки */
-.tabs {
-  display: flex;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.tab-button {
-  flex: 1;
-  padding: 12px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  color: var(--text-secondary);
-  position: relative;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.tab-button.active {
-  color: var(--primary-color);
-  font-weight: 500;
-}
-
-.tab-button.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: var(--primary-color);
-  border-radius: 3px 3px 0 0;
-}
-
-/* Формы и ввод */
-.input-field {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--input-bg);
-  border: 1px solid var(--input-border);
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  color: var(--input-text);
-  transition: border-color 0.2s;
-}
-
-.input-field::placeholder {
-  color: var(--input-placeholder);
-}
-
-.input-field:focus {
-  border-color: var(--primary-color);
-  outline: none;
-}
-
-.primary-button {
-  width: 100%;
-  padding: 12px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background-color 0.2s;
-}
-
-.primary-button:hover {
-  background-color: var(--primary-hover);
-}
-
-/* Список транзакций */
-.transactions-list {
-  max-height: 400px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) var(--background-color);
-}
-
-.transaction-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.transaction-item:last-child {
-  border-bottom: none;
-}
-
+/* Обновленные стили для транзакций */
 .transaction-amount.income {
   color: var(--secondary-color);
+  font-weight: 600; /* Более жирный текст */
 }
 
 .transaction-amount.expense {
   color: var(--danger-color);
+  font-weight: 600;
 }
 
-.transaction-category {
-  font-size: 14px;
-  color: var(--text-secondary);
+/* Градиенты и тени для кнопок */
+.primary-button {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
-/* Статистика */
-.stats-summary {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  gap: 8px;
+.primary-button:hover {
+  background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transform: translateY(-1px); /* Эффект "поднятия" */
 }
 
-.stat-item {
-  text-align: center;
-  flex: 1;
-}
-
-.stat-label {
-  display: block;
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
-.stat-value {
-  display: block;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-.stat-value.income {
-  color: var(--secondary-color);
-}
-
-.stat-value.expense {
-  color: var(--danger-color);
-}
-
-/* Графики */
+/* Стили для графиков с акцентными цветами */
 .chart-container {
-  height: 200px;
-  margin-bottom: 24px;
-  background-color: var(--card-color);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  background: linear-gradient(to bottom right, 
+    var(--card-color), 
+    var(--background-color));
+}
+
+/* Обновленный segmented control */
+.segmented-control {
+  background-color: var(--background-color);
   border: 1px solid var(--border-color);
 }
 
-/* Сегментированный контрол */
-.segmented-control {
-  display: flex;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  background-color: var(--border-color);
-}
-
-.segment {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  background: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
 .segment.active {
-  background-color: var(--card-color);
-  font-weight: 500;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to right, 
+    var(--primary-color), 
+    var(--secondary-color));
+  color: white;
+  box-shadow: 0 2px 5px var(--shadow-color);
 }
 
-/* Оптимизированные медиа-запросы */
-@media (max-width: 480px) {
-  .container {
-    padding: 12px;
-  }
-  
-  .stats-summary {
-    flex-direction: column;
-    gap: 16px;
-  }
+/* Анимации */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Новые стили для статистики */
+.stat-item {
+  background-color: var(--card-color);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.stat-value {
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+/* Кастомные скроллбары */
+.transactions-list::-webkit-scrollbar-track {
+  background-color: var(--background-color);
+}
+
+.transactions-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, 
+    var(--primary-color), 
+    var(--secondary-color));
+  border-radius: 10px;
 }
