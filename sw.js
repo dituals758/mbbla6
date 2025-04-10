@@ -1,11 +1,13 @@
-const CACHE_NAME = 'finance-v4';
+const CACHE_NAME = 'finance-v5';
 const ASSETS = [
   'https://dituals758.github.io/mbbla6/',
   'https://dituals758.github.io/mbbla6/index.html',
   'https://dituals758.github.io/mbbla6/style.css',
   'https://dituals758.github.io/mbbla6/app.js',
   'https://dituals758.github.io/mbbla6/manifest.json',
-  'https://dituals758.github.io/mbbla6/icon.png'
+  'https://dituals758.github.io/mbbla6/icon-512.png',
+  'https://dituals758.github.io/mbbla6/icon-192.png',
+  'https://dituals758.github.io/mbbla6/icon-iphone.png'
 ];
 
 self.addEventListener('install', (event) => {
