@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #34C759; /* Зеленый вместо синего */
+  --primary-color: #34C759;
   --primary-hover: #2DBE50;
   --secondary-color: #007AFF;
   --danger-color: #FF3B30;
@@ -17,8 +17,6 @@
 /* Темная тема */
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-color: #30D158; /* Зеленый для темной темы */
-    --primary-hover: #2BC653;
     --secondary-color: #0A84FF;
     --danger-color: #FF453A;
     --background-color: #1C1C1E;
