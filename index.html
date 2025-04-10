@@ -2,131 +2,161 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Финансовый трекер</title>
-    <meta name="theme-color" content="#4CAF50">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Финансы</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <style>
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 4px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
+        /* CSS стили */
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, sans-serif;
         }
-        .toast.info { background-color: #2196F3; }
-        .toast.success { background-color: #4CAF50; }
-        .toast.error { background-color: #F44336; }
-        .toast.show {
-            opacity: 1;
+        
+        body {
+            margin: 0;
+            padding: 20px 15px 70px;
+            background: #f5f5f7;
+        }
+        
+        .screen {
+            display: none;
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            -webkit-appearance: none;
+        }
+        
+        button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 17px;
+            margin-top: 10px;
+        }
+        
+        .nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: white;
+            border-top: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        
+        .nav-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .nav-btn.active {
+            color: #007AFF;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="app-header">
-            <h1>Финансы</h1>
-            <div class="header-actions">
-                <button id="refresh-btn" class="icon-button" aria-label="Обновить" title="Проверить обновления">
-                    <svg width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-                    </svg>
-                </button>
-            </div>
-        </header>
-        <div class="tabs">
-            <button class="tab-button active" data-tab="add">Добавить</button>
-            <button class="tab-button" data-tab="history">История</button>
-            <button class="tab-button" data-tab="stats">Статистика</button>
-        </div>
-        
-        <div class="tab-content active" id="add-tab">
-            <div class="card">
-                <div class="segmented-control">
-                    <button class="segment active" data-type="expense">Расход</button>
-                    <button class="segment" data-type="income">Доход</button>
-                </div>
-                
-                <div class="form-group">
-                    <input type="number" id="amount" placeholder="Сумма" class="input-field">
-                </div>
-                
-                <div class="form-group">
-                    <select id="category" class="input-field">
-                        <option value="" disabled selected>Категория</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <input type="date" id="date" class="input-field">
-                </div>
-                
-                <div class="form-group">
-                    <input type="text" id="description" placeholder="Описание (необязательно)" class="input-field">
-                </div>
-                
-                <button id="save-btn" class="primary-button">Сохранить</button>
-            </div>
-        </div>
-        
-        <div class="tab-content" id="history-tab">
-            <div class="card">
-                <h2 class="section-title">Последние операции</h2>
-                <div id="transactions-list" class="transactions-list">
-                    <div class="empty-state">Нет данных</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="tab-content" id="stats-tab">
-            <div class="card">
-                <h2 class="section-title">Статистика</h2>
-                <div class="form-group">
-                    <select id="stats-period" class="input-field">
-                        <option value="week">Неделя</option>
-                        <option value="month" selected>Месяц</option>
-                        <option value="year">Год</option>
-                    </select>
-                </div>
-                
-                <div class="stats-summary">
-                    <div class="stat-item">
-                        <span class="stat-label">Доходы</span>
-                        <span id="total-income" class="stat-value income">0 ₽</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Расходы</span>
-                        <span id="total-expense" class="stat-value expense">0 ₽</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Баланс</span>
-                        <span id="total-balance" class="stat-value">0 ₽</span>
-                    </div>
-                </div>
-                
-                <h3 class="chart-title">Расходы по категориям</h3>
-                <div id="expense-chart" class="chart-container">
-                    <canvas id="expense-canvas"></canvas>
-                </div>
-                
-                <h3 class="chart-title">Доходы по категориям</h3>
-                <div id="income-chart" class="chart-container">
-                    <canvas id="income-canvas"></canvas>
-                </div>
-            </div>
-        </div>
+    <!-- Главный экран -->
+    <div class="screen active" id="mainScreen">
+        <input type="number" step="0.01" id="amount" inputmode="decimal" placeholder="Сумма">
+        <select id="type">
+            <option value="Доход">Доход</option>
+            <option value="Расход">Расход</option>
+        </select>
+        <select id="category"></select>
+        <button onclick="addTransaction()">Добавить</button>
     </div>
-    <div id="toast" class="toast"></div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="app.js"></script>
+
+    <!-- Экран статистики -->
+    <div class="screen" id="statsScreen">
+        <select id="period" onchange="loadStats()">
+            <option value="month">Месяц</option>
+            <option value="year">Год</option>
+            <option value="all">Все время</option>
+        </select>
+        <div id="stats"></div>
+    </div>
+
+    <!-- Навигация -->
+    <div class="nav">
+        <div class="nav-btn active" onclick="showScreen('mainScreen')">➕</div>
+        <div class="nav-btn" onclick="showScreen('statsScreen')">📊</div>
+    </div>
+
+    <script>
+        // Конфигурация
+        const SCRIPT_URL = 'ВАШ_URL_СКРИПТА';
+
+        // Инициализация категорий
+        const categories = {
+            'Доход': ['Зарплата', 'Аванс', 'Инвестиции', 'Другое'],
+            'Расход': ['Жильё', 'Транспорт', 'Еда', 'Одежда', 'Развлечения', 'Связь', 'Личные', 'Другое']
+        };
+
+        function init() {
+            updateCategories();
+            document.getElementById('type').addEventListener('change', updateCategories);
+        }
+
+        function updateCategories() {
+            const type = document.getElementById('type').value;
+            const categorySelect = document.getElementById('category');
+            categorySelect.innerHTML = categories[type]
+                .map(c => `<option>${c}</option>`)
+                .join('');
+        }
+
+        async function addTransaction() {
+            const transaction = {
+                date: new Date().toISOString(),
+                type: document.getElementById('type').value,
+                category: document.getElementById('category').value,
+                amount: document.getElementById('amount').value
+            };
+
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(transaction)
+            });
+            
+            document.getElementById('amount').value = '';
+        }
+
+        async function loadStats() {
+            const response = await fetch(SCRIPT_URL);
+            const data = await response.json();
+            // Обработка статистики
+            document.getElementById('stats').innerHTML = JSON.stringify(data);
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // PWA Регистрация
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        init();
+    </script>
 </body>
 </html>
