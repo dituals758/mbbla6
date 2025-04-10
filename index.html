@@ -17,6 +17,20 @@
         <select id="category"></select>
         <button onclick="app.addTransaction()">Добавить</button>
     </div>
+    <div class="nav">
+      <div class="nav-btn active" onclick="app.showScreen('mainScreen')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 11H10V21H4V11ZM14 3H20V21H14V3Z" fill="currentColor"/>
+          </svg>
+          <span>Главная</span>
+      </div>
+      <div class="nav-btn" onclick="app.showScreen('statsScreen')">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M3 13H11V21H3V13ZM13 3H21V21H13V3Z" fill="currentColor"/>
+          </svg>
+          <span>Статистика</span>
+      </div>
+  </div>
     <script>
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('sw.js').then(reg => {

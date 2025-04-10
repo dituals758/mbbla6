@@ -87,7 +87,24 @@ const app = {
       
       document.getElementById('amount')
         .insertAdjacentElement('afterend', errorDiv);
-    }
+    },
+
+    showScreen: function(screenId) {
+      // Скрыть все экраны
+      document.querySelectorAll('.screen').forEach(s => {
+          s.classList.remove('active');
+          s.style.opacity = '0';
+      });
+      
+      // Показать выбранный экран
+      const activeScreen = document.getElementById(screenId);
+      activeScreen.classList.add('active');
+      setTimeout(() => activeScreen.style.opacity = '1', 50);
+      
+      // Обновить навигацию
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+  }
   };
   
   // Инициализация
