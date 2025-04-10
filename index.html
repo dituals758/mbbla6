@@ -11,159 +11,7 @@
                    viewport-fit=cover">
     <title>Финансы</title>
     <link rel="manifest" href="manifest.json">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        html {
-            touch-action: pan-x pan-y;
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-            overscroll-behavior: contain;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-            background: #f5f5f7;
-            color: #1d1d1f;
-            margin: 0;
-            padding: 16px 16px 72px;
-            min-height: 100vh;
-            overflow: hidden;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        .screen {
-            display: none;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        input, select {
-            width: 100%;
-            height: 44px;
-            padding: 0 16px;
-            font-size: 16px;
-            border: 1px solid #c7c7cc;
-            border-radius: 10px;
-            background: #ffffff;
-            -webkit-appearance: none;
-            appearance: none;
-            margin: 4px 0;
-        }
-
-        input:invalid {
-            border-color: #ff3b30;
-            animation: shake 0.3s;
-        }
-
-        @keyframes shake {
-            25% { transform: translateX(4px); }
-            50% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
-
-        .error-message {
-            color: #ff3b30;
-            font-size: 13px;
-            padding: 4px 16px;
-            display: none;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: #007AFF;
-            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
-        }
-
-        select {
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-            padding-right: 40px;
-        }
-
-        button {
-            width: 100%;
-            height: 50px;
-            background: #007AFF;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 17px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 8px;
-        }
-
-        button:active {
-            opacity: 0.8;
-        }
-
-        .nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            border-top: 1px solid #e5e5ea;
-            display: flex;
-            padding: 8px 0;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .nav-btn {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            color: #8e8e93;
-            font-size: 28px;
-            line-height: 1;
-            transition: color 0.2s;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .nav-btn.active {
-            color: #007AFF;
-        }
-
-        #stats {
-            margin-top: 20px;
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-
-        @media (max-width: 380px) {
-            body {
-                padding: 12px 12px 72px;
-            }
-            
-            input, select {
-                font-size: 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="screen active" id="mainScreen">
@@ -174,12 +22,12 @@
                 <option value="Расход">Расход</option>
             </select>
             <select id="category"></select>
-            <button onclick="addTransaction()">Добавить</button>
+            <button onclick="app.addTransaction()">Добавить</button>
         </div>
     </div>
 
     <div class="screen" id="statsScreen">
-        <select id="period" onchange="loadStats()">
+        <select id="period" onchange="app.loadStats()">
             <option value="month">Месяц</option>
             <option value="year">Год</option>
             <option value="all">Все время</option>
@@ -188,94 +36,10 @@
     </div>
 
     <div class="nav">
-        <div class="nav-btn active" onclick="showScreen('mainScreen')">➕</div>
-        <div class="nav-btn" onclick="showScreen('statsScreen')">📊</div>
+        <div class="nav-btn active" onclick="app.showScreen('mainScreen')">➕</div>
+        <div class="nav-btn" onclick="app.showScreen('statsScreen')">📊</div>
     </div>
 
-    <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwj94YEJ7CKe_cEGTngykKzTg9W1F9ZIheIeXvbJBJOsHBGAh1dhlAUie60zmEPffCv8Q/exec';
-
-        const categories = {
-            'Доход': ['Зарплата', 'Аванс', 'Инвестиции', 'Другое'],
-            'Расход': ['Жильё', 'Транспорт', 'Еда', 'Одежда', 'Развлечения', 'Связь', 'Личные', 'Другое']
-        };
-
-        function init() {
-            updateCategories();
-            document.getElementById('type').addEventListener('change', updateCategories);
-            
-            // Блокировка масштабирования
-            document.addEventListener('dblclick', (e) => {
-                e.preventDefault();
-            }, { passive: false });
-
-            document.addEventListener('touchstart', (e) => {
-                if(e.touches.length > 1) e.preventDefault();
-            }, { passive: false });
-        }
-
-        function updateCategories() {
-            const type = document.getElementById('type').value;
-            const categorySelect = document.getElementById('category');
-            categorySelect.innerHTML = categories[type].map(c => `<option>${c}</option>`).join('');
-        }
-
-        async function addTransaction() {
-            const amountInput = document.getElementById('amount');
-            const errorMessage = document.createElement('div');
-            errorMessage.className = 'error-message';
-            errorMessage.textContent = 'Введите сумму';
-            
-            document.querySelectorAll('.error-message').forEach(el => el.remove());
-            
-            if (!amountInput.value || parseFloat(amountInput.value) <= 0) {
-                errorMessage.textContent = amountInput.value ? 
-                    'Сумма должна быть больше нуля' : 
-                    'Введите сумму';
-                
-                amountInput.parentNode.insertBefore(errorMessage, amountInput.nextSibling);
-                errorMessage.style.display = 'block';
-                amountInput.focus();
-                return;
-            }
-
-            const transaction = {
-                date: new Date().toISOString(),
-                type: document.getElementById('type').value,
-                category: document.getElementById('category').value,
-                amount: amountInput.value
-            };
-
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(transaction)
-                });
-                amountInput.value = '';
-            } catch (error) {
-                alert('Ошибка сохранения: ' + error.message);
-            }
-        }
-
-        async function loadStats() {
-            const response = await fetch(SCRIPT_URL);
-            const data = await response.json();
-            document.getElementById('stats').innerHTML = JSON.stringify(data);
-        }
-
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
-
-        init();
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
