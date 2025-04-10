@@ -75,45 +75,53 @@ async function saveTransaction() {
     const description = document.getElementById('description').value || '';
     
     if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
-        alert('Пожалуйста, введите корректную сумму');
-        return;
+      alert('Пожалуйста, введите корректную сумму');
+      return;
     }
     
     if (!date) {
-        alert('Пожалуйста, укажите дату');
-        return;
+      alert('Пожалуйста, укажите дату');
+      return;
     }
     
     const data = {
-        type,
-        amount: parseFloat(amount),
-        category,
-        date,
-        description
+      type,
+      amount: parseFloat(amount),
+      category,
+      date,
+      description
     };
     
     try {
-        const response = await fetch(scriptURL, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        
-        if (response.ok) {
-            alert('Данные сохранены');
-            document.getElementById('amount').value = '';
-            document.getElementById('description').value = '';
-            loadTransactions();
-        } else {
-            throw new Error('Ошибка сохранения');
-        }
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // Добавляем режим CORS
+        mode: 'cors'
+      });
+      
+      if (!response.ok) {
+        throw new Error('Ошибка сети');
+      }
+      
+      const result = await response.json();
+      
+      if (result.status === 'success') {
+        alert('Данные сохранены');
+        document.getElementById('amount').value = '';
+        document.getElementById('description').value = '';
+        loadTransactions();
+      } else {
+        throw new Error(result.message || 'Ошибка сохранения');
+      }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Произошла ошибка при сохранении');
+      console.error('Error:', error);
+      alert(`Произошла ошибка: ${error.message}`);
     }
-}
+  }
 
 async function loadTransactions() {
     try {
