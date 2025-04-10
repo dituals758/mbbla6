@@ -1,5 +1,5 @@
 // Конфигурация Google Sheets
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxW5Gx1AH7-jRGb_tPzAA4GXWetr8JYdH6azp6JN_aZqimTmfq06EDxrc3-SFivY0Nj/exec'; // Замените на ваш URL
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz7Dt8zzgIvNigUoflEnZnkXKY5qgQANwAVvQFh2BrwWKjyb2OgCBV1BzFI18dt87Oa9w/exec'; // Замените на ваш URL
 const categories = {
     expense: ['Еда', 'Одежда', 'Дом', 'Транспорт', 'Связь', 'Другое'],
     income: ['Зарплата', 'Аванс', '% по вкладу', 'Другое']

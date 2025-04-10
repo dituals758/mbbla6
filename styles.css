@@ -1,14 +1,39 @@
 :root {
-  --primary-color: #007AFF;
-  --secondary-color: #34C759;
+  --primary-color: #34C759; /* Зеленый вместо синего */
+  --primary-hover: #2DBE50;
+  --secondary-color: #007AFF;
   --danger-color: #FF3B30;
   --background-color: #F2F2F7;
   --card-color: #FFFFFF;
   --text-primary: #000000;
   --text-secondary: #8E8E93;
   --border-color: #D1D1D6;
+  --input-bg: #FFFFFF;
+  --input-border: #D1D1D6;
+  --input-text: #000000;
+  --input-placeholder: #8E8E93;
 }
 
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #30D158; /* Зеленый для темной темы */
+    --primary-hover: #2BC653;
+    --secondary-color: #0A84FF;
+    --danger-color: #FF453A;
+    --background-color: #1C1C1E;
+    --card-color: #2C2C2E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #8E8E93;
+    --border-color: #38383A;
+    --input-bg: #2C2C2E;
+    --input-border: #38383A;
+    --input-text: #FFFFFF;
+    --input-placeholder: #8E8E93;
+  }
+}
+
+/* Базовые стили */
 body {
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
@@ -18,21 +43,11 @@ body {
   line-height: 1.5;
 }
 
+/* Контейнер и карточки */
 .container {
   max-width: 600px;
   margin: 0 auto;
   padding: 16px;
-}
-
-.app-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.app-header h1 {
-  font-weight: 500;
-  font-size: 28px;
-  margin: 0;
 }
 
 .card {
@@ -43,6 +58,19 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Заголовок */
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  font-weight: 500;
+  font-size: clamp(24px, 5vw, 28px); /* Адаптивный размер */
+  margin: 0;
+}
+
+/* Вкладки */
 .tabs {
   display: flex;
   margin-bottom: 16px;
@@ -58,6 +86,7 @@ body {
   color: var(--text-secondary);
   position: relative;
   cursor: pointer;
+  transition: color 0.2s;
 }
 
 .tab-button.active {
@@ -76,56 +105,26 @@ body {
   border-radius: 3px 3px 0 0;
 }
 
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-.segmented-control {
-  display: flex;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  background-color: #E5E5EA;
-}
-
-.segment {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  background: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.segment.active {
-  background-color: var(--card-color);
-  font-weight: 500;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 16px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
+/* Формы и ввод */
 .input-field {
   width: 100%;
   padding: 12px;
-  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   font-size: 16px;
   box-sizing: border-box;
+  color: var(--input-text);
+  transition: border-color 0.2s;
+}
+
+.input-field::placeholder {
+  color: var(--input-placeholder);
+}
+
+.input-field:focus {
+  border-color: var(--primary-color);
+  outline: none;
 }
 
 .primary-button {
@@ -139,11 +138,19 @@ body {
   font-weight: 500;
   cursor: pointer;
   margin-top: 8px;
+  transition: background-color 0.2s;
 }
 
+.primary-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Список транзакций */
 .transactions-list {
   max-height: 400px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--background-color);
 }
 
 .transaction-item {
@@ -170,14 +177,17 @@ body {
   color: var(--text-secondary);
 }
 
+/* Статистика */
 .stats-summary {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
+  gap: 8px;
 }
 
 .stat-item {
   text-align: center;
+  flex: 1;
 }
 
 .stat-label {
@@ -200,30 +210,53 @@ body {
   color: var(--danger-color);
 }
 
+/* Графики */
 .chart-container {
   height: 200px;
   margin-bottom: 24px;
-  background-color: var(--background-color);
+  background-color: var(--card-color);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
+  border: 1px solid var(--border-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-      --primary-color: #0A84FF;
-      --secondary-color: #30D158;
-      --danger-color: #FF453A;
-      --background-color: #1C1C1E;
-      --card-color: #2C2C2E;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E8E93;
-      --border-color: #38383A;
+/* Сегментированный контрол */
+.segmented-control {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background-color: var(--border-color);
+}
+
+.segment {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.segment.active {
+  background-color: var(--card-color);
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Оптимизированные медиа-запросы */
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
   }
   
-  .segmented-control {
-      background-color: #38383A;
+  .stats-summary {
+    flex-direction: column;
+    gap: 16px;
   }
 }
