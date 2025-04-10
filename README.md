@@ -40,7 +40,7 @@
 
 2. **Настройка Google Apps Script**:
    - Создайте новый проект в [Google Apps Script](https://script.google.com/)
-   - Вставьте код из файла `google-apps-script.js`
+   - Вставьте код из файла `google-apps-script.gs`
    - Замените `YOUR_GOOGLE_SHEET_ID` на ID вашей таблицы
    - Опубликуйте скрипт как веб-приложение (Развернуть > Новое развертывание > Веб-приложение)
    - Скопируйте URL веб-приложения
