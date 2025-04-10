@@ -1,0 +1,145 @@
+:root {
+  --ios-background: #f2f2f7;
+  --ios-surface: rgba(255,255,255,.8);
+  --ios-primary: #1e8250; /* зеленый вместо синего */
+  --ios-primary-hover: #1e8250;
+  --ios-text-primary: #1c1e1c;
+  --ios-text-secondary: #636366;
+  --ios-border: rgba(0,0,0,.1);
+  --ios-blur: saturate(180%) blur(20px);
+  --ios-shadow: 0 4px 20px rgba(0,0,0,.08);
+  --ios-border-radius: 14px;
+  --ios-transition: all .3s cubic-bezier(.25,.8,.25,1);
+}
+
+body, .container, h1, .form-group, label, 
+input, textarea, button, select {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--ios-background);
+  color: var(--ios-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container, .notification-status {
+  margin: 20px auto;
+  max-width: 720px;
+  padding: 24px;
+  background: var(--ios-surface);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+  border-radius: var(--ios-border-radius);
+  box-shadow: var(--ios-shadow);
+  border: 1px solid var(--ios-border);
+  animation: fadeIn .4s cubic-bezier(.23,1,.32,1);
+}
+
+h1 {
+  text-align: center;
+  color: var(--ios-text-primary);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: -.5px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ios-text-secondary);
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  background: rgba(255,255,255,.7);
+  border: 1px solid var(--ios-border);
+  border-radius: 12px;
+  transition: var(--ios-transition);
+  backdrop-filter: var(--ios-blur);
+  -webkit-backdrop-filter: var(--ios-blur);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--ios-primary);
+  box-shadow: 0 0 0 3px rgba(30,130,80,.15); /* зеленый вместо синего */
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+button {
+  background: var(--ios-primary);
+  color: #fff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 500;
+  width: 100%;
+  transition: var(--ios-transition);
+  box-shadow: 0 2px 10px rgba(30,130,80,.2); /* зеленый вместо синего */
+}
+
+button:hover {
+  background: var(--ios-primary-hover);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23636366'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px) }
+  to { opacity: 1; transform: translateY(0) }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ios-background: #1c1e1c;
+    --ios-surface: rgba(44,44,46,.8);
+    --ios-text-primary: #f2f2f7;
+    --ios-text-secondary: #aeaeb2;
+    --ios-border: rgba(255,255,255,.1);
+  }
+  
+  input, textarea, select, #status {
+    background: rgba(44,44,46,.6);
+    color: #fff;
+  }
+}
+
+@supports (padding: max(0px)) {
+  .container {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+}

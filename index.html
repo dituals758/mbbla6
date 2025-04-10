@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кря-Финансы 🦆💸 | Учет доходов и расходов</title>
+    <meta name="description" content="Приложение для учета доходов и расходов с категориями операций">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="icons/icon-72x72.png">
+</head>
+<body>
+    <div class="container">
+        <form id="dataForm">
+            <div class="form-group">
+                <label for="operationType">Тип операции:</label>
+                <select id="operationType" required>
+                    <option value="Расход" selected>Расход</option>
+                    <option value="Доход">Доход</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Категория:</label>
+                <select id="category" required></select>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Сумма (₽):</label>
+                <input type="text" id="amount" inputmode="decimal" required 
+                       pattern="[0-9]+([,][0-9]{1,2})?" 
+                       placeholder="Введите число, например: 12,34">
+            </div>
+            
+            <button type="submit">Записать операцию 💸<span id="status"></span></button>
+        </form>
+        
+        <article>
+            <h2>«Кря-Финансы» 🦆💸</h2>
+            <p>Наша миссия — не дать вашему бюджету "крякнуть" — сделать контроль за финансами простым, наглядным и даже забавным.</p>
+            <p>Мы превращаем стресс от перерасхода в лёгкое «кря-кря!», а скучные отчёты — в понятные утиные графики. Наше приложение — как спасательный круг для ваших денег: поможет увидеть утечки, запланировать накопления и всегда держать бюджет на плаву. Ведь когда финансы под контролем — жизнь легче и веселее!</p>
+        </article>
+    </div>
+
+    <!-- Подключаем скрипты -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
