@@ -24,7 +24,7 @@
               const newWorker = reg.installing;
               newWorker.onstatechange = () => {
                 if (newWorker.state === 'installed') {
-                  if (confirm('Доступно обновление! Обновить сейчас?')) {
+                  if (confirm('Доступно обновление (${CACHE_NAME})! Обновить сейчас?')) {
                     window.location.reload();
                   }
                 }
