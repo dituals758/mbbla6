@@ -136,20 +136,22 @@ function handleGetStats(data, period) {
   return buildResponse({stats});
 }
 
-/**
- * Формирование ответа с CORS заголовками
- */
 function buildResponse(data, statusCode = 200) {
-  const output = ContentService.createTextOutput(JSON.stringify(data));
-  output.setMimeType(ContentService.MimeType.JSON);
-  output.setStatusCode(statusCode);
+  const response = {
+    data: JSON.stringify(data),
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Content-Type': 'application/json'
+    },
+    status: statusCode
+  };
   
-  // CORS заголовки
-  output.setHeader('Access-Control-Allow-Origin', '*');
-  output.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  output.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  
-  return output;
+  return ContentService
+    .createTextOutput(response.data)
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeaders(response.headers);
 }
 
 /**
