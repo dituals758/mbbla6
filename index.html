@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Финансовый трекер</title>
+    <meta name="theme-color" content="#4CAF50">
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
     <link rel="stylesheet" href="styles.css">
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
@@ -29,25 +30,21 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="amount">Сумма</label>
-                    <input type="number" id="amount" placeholder="0" class="input-field">
+                    <input type="number" id="amount" placeholder="Сумма" class="input-field">
                 </div>
                 
                 <div class="form-group">
-                    <label for="category">Категория</label>
                     <select id="category" class="input-field">
-                        <!-- Категории будут заполнены JS -->
+                        <option value="" disabled selected>Категория</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="date">Дата</label>
                     <input type="date" id="date" class="input-field">
                 </div>
                 
                 <div class="form-group">
-                    <label for="description">Описание (необязательно)</label>
-                    <input type="text" id="description" placeholder="Комментарий" class="input-field">
+                    <input type="text" id="description" placeholder="Описание (необязательно)" class="input-field">
                 </div>
                 
                 <button id="save-btn" class="primary-button">Сохранить</button>
@@ -56,20 +53,20 @@
         
         <div class="tab-content" id="history-tab">
             <div class="card">
-                <h2>Последние операции</h2>
+                <h2 class="section-title">Последние операции</h2>
                 <div id="transactions-list" class="transactions-list">
-                    <!-- Список будет заполнен JS -->
+                    <div class="empty-state">Нет данных</div>
                 </div>
             </div>
         </div>
         
         <div class="tab-content" id="stats-tab">
             <div class="card">
-                <h2>Статистика</h2>
-                <div class="stats-period">
+                <h2 class="section-title">Статистика</h2>
+                <div class="form-group">
                     <select id="stats-period" class="input-field">
                         <option value="week">Неделя</option>
-                        <option value="month">Месяц</option>
+                        <option value="month" selected>Месяц</option>
                         <option value="year">Год</option>
                     </select>
                 </div>
@@ -89,19 +86,20 @@
                     </div>
                 </div>
                 
-                <h3>Расходы по категориям</h3>
+                <h3 class="chart-title">Расходы по категориям</h3>
                 <div id="expense-chart" class="chart-container">
-                    <!-- График будет заполнен JS -->
+                    <canvas id="expense-canvas"></canvas>
                 </div>
                 
-                <h3>Доходы по категориям</h3>
+                <h3 class="chart-title">Доходы по категориям</h3>
                 <div id="income-chart" class="chart-container">
-                    <!-- График будет заполнен JS -->
+                    <canvas id="income-canvas"></canvas>
                 </div>
             </div>
         </div>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
