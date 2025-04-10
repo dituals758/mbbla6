@@ -17,7 +17,22 @@
         <select id="category"></select>
         <button onclick="app.addTransaction()">Добавить</button>
     </div>
-
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js').then(reg => {
+            reg.onupdatefound = () => {
+              const newWorker = reg.installing;
+              newWorker.onstatechange = () => {
+                if (newWorker.state === 'installed') {
+                  if (confirm('Доступно обновление! Обновить сейчас?')) {
+                    window.location.reload();
+                  }
+                }
+              };
+            };
+          });
+        }
+        </script>
     <script src="app.js"></script>
 </body>
 </html>
