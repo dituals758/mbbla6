@@ -17,42 +17,35 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCategories(); // Инициализация
 
     // Отправка формы
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('dataForm');
-        const status = document.getElementById('status');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        status.textContent = SUBMITTING_MSG;
         
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            status.textContent = "Отправка...";
-            
-            // Создаем скрытую форму для отправки
-            const formData = new FormData();
-            formData.append('operationType', document.getElementById('operationType').value);
-            formData.append('category', document.getElementById('category').value);
-            formData.append('amount', document.getElementById('amount').value.replace(',', '.'));
-            
-            // Используем XMLHttpRequest вместо fetch
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://script.google.com/macros/s/AKfycbzz9Sawvd12eWPW2v1dxadalZQ1GIWEfuTgrJ1VqiTBKzOfLY52PeQlU05OhVepd7C1/exec', true);
-            
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    status.textContent = "✓ Успешно!";
-                    form.reset();
-                } else {
-                    status.textContent = "Ошибка отправки";
-                }
-            };
-            
-            xhr.onerror = function() {
-                status.textContent = "Ошибка соединения";
-            };
-            
-            xhr.send(formData);
-        });
+        const formData = new FormData();
+        formData.append('operationType', operationType.value);
+        formData.append('category', category.value);
+        formData.append('amount', amount.value.replace(',', '.'));
+        
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', API_URL, true);
+        
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                status.textContent = SUCCESS_MSG;
+                form.reset();
+            } else {
+                status.textContent = ERROR_MSG;
+            }
+        };
+        
+        xhr.onerror = function() {
+            status.textContent = ERROR_MSG;
+        };
+        
+        xhr.send(formData);
     });
 
-    // Простая валидация суммы
+    // Валидация суммы
     amount.addEventListener('input', function() {
         this.value = this.value.replace(/[^\d,]/g, '')
                                .replace(/(,.*?),/g, '$1');
