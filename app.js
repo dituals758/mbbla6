@@ -1,5 +1,5 @@
 const app = {
-    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwj94YEJ7CKe_cEGTngykKzTg9W1F9ZIheIeXvbJBJOsHBGAh1dhlAUie60zmEPffCv8Q/exec',
+    SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxTy8SEdp91qYJET71cto0yhCuoA0q-y5AJkVIKIKzwgLpT_dIgGA-AesxiQRldaYyivg/exec',
     
     init: function() {
       this.setupCategories();
