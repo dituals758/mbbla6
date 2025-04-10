@@ -73,30 +73,38 @@ async function saveTransaction() {
     const category = document.getElementById('category').value;
     const date = document.getElementById('date').value;
     
-    // Формируем URL с параметрами
-    const url = new URL(scriptURL);
-    url.searchParams.append('type', type);
-    url.searchParams.append('amount', amount);
-    url.searchParams.append('category', category);
-    url.searchParams.append('date', date);
-    url.searchParams.append('description', document.getElementById('description').value || '');
-    
-    try {
-      // Отправляем GET-запрос (не требует CORS)
-      const response = await fetch(url, {
-        method: 'GET',
-        redirect: 'follow'
-      });
-      
-      if (response.ok) {
-        alert('Данные сохранены!');
-        document.getElementById('amount').value = '';
-        loadTransactions();
-      }
-    } catch (error) {
-      console.error('Ошибка:', error);
+    if (!amount || !category || !date) {
+        alert('Заполните обязательные поля!');
+        return;
     }
-  }
+
+    const data = {
+        type,
+        amount,
+        category,
+        date,
+        description: document.getElementById('description').value || ''
+    };
+
+    try {
+        const response = await fetch(scriptURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+            alert('Данные сохранены!');
+            document.getElementById('amount').value = '';
+            loadTransactions();
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Ошибка при сохранении');
+    }
+}
 
 async function loadTransactions() {
     try {
