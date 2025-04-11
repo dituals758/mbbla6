@@ -23,6 +23,8 @@ export const App = {
   showScreen
 };
 
+window.App = App
+
 const initYearSelector = () => {
   const yearSelect = document.querySelector('#yearSelect');
   if (!yearSelect) return;
