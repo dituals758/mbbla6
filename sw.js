@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kryakBudget-v4.2';
+const CACHE_NAME = 'kryakBudget-v4.2.1';
 const ASSETS = [
   'https://dituals758.github.io/mbbla6/',
   'https://dituals758.github.io/mbbla6/index.html',

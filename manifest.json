@@ -2,7 +2,7 @@
   "name": "КрякБюджет",
   "short_name": "КрякБюджет",
   "description": "Персональный менеджер доходов и расходов с очаровательным утёнком",
-  "start_url": "/",
+  "start_url": "",
   "display": "standalone",
   "theme_color": "#34C759",
   "background_color": "#FFFFFF",

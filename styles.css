@@ -10,6 +10,8 @@
   --ios-label: #1C1C1E;
   --ios-separator: #C6C6C8;
   --shadow: 0 4px 12px rgba(0,0,0,0.08);
+  --ios-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --ios-background-rgb: 255,255,255;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,39 +21,69 @@
     --ios-label: #FFFFFF;
     --ios-separator: #38383A;
     --stability-beige: #2D2D2D;
+    --ios-background-rgb: 28,28,30;
   }
+}
+
+/* Базовые стили */
+html {
+  -webkit-text-size-adjust: 100%;
+  touch-action: pan-y;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: linear-gradient(135deg, var(--security-blue) 0%, var(--stability-beige) 100%);
   color: var(--ios-label);
+  margin: 0;
+  line-height: 1.5;
 }
 
+/* Компоненты */
 .status-bar {
   height: 44px;
   background: var(--ios-background);
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1000;
 }
 
 .screen {
   padding: 64px 16px 100px;
   min-height: 100vh;
   background: var(--ios-background);
+  transition: var(--ios-transition);
 }
 
+/* Формы */
 .ios-input, .ios-select {
   width: 100%;
   padding: 14px 16px;
   margin: 8px 0;
-  border: 1px solid var(--ios-separator);
+  border: 2px solid var(--ios-separator);
   border-radius: 12px;
   font-size: 17px;
   background: var(--ios-secondary);
+  transition: var(--ios-transition);
+  appearance: none;
 }
 
+.ios-input:focus, .ios-select:focus {
+  border-color: var(--emerald);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52,199,89,0.2);
+}
+
+.input-label {
+  display: block;
+  font-size: 13px;
+  color: #8E8E93;
+  margin: 12px 0 4px 16px;
+  font-weight: 500;
+}
+
+/* Кнопки */
 .ios-button {
   background: var(--emerald);
   color: white;
@@ -65,7 +97,9 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.2s ease;
+  transition: var(--ios-transition);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
 }
 
 .ios-button:active {
@@ -73,8 +107,16 @@ body {
   opacity: 0.9;
 }
 
-.total-card {
-  background: rgba(255,255,255,0.9);
+@media (hover: hover) {
+  .ios-button:hover:not(:active) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  }
+}
+
+/* Карточки */
+.balance-card, .total-card {
+  background: rgba(var(--ios-background-rgb), 0.85);
   backdrop-filter: blur(10px);
   padding: 16px;
   border-radius: 12px;
@@ -82,25 +124,14 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
+  box-shadow: var(--shadow);
+  transition: var(--ios-transition);
 }
 
-.chart-container {
-  background: var(--ios-secondary);
-  border-radius: 16px;
-  padding: 16px;
-  margin: 16px 0;
-}
+.total-card.income { border-left: 4px solid var(--emerald); }
+.total-card.expense { border-left: 4px solid var(--ruby-red); }
 
-.category-item {
-  background: var(--ios-secondary);
-  padding: 12px;
-  border-radius: 8px;
-  margin: 8px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* Навигация */
 .ios-tab-bar {
   background: var(--ios-background);
   border-top: 1px solid var(--ios-separator);
@@ -110,6 +141,7 @@ body {
   display: flex;
   justify-content: space-around;
   padding: 12px 0;
+  backdrop-filter: blur(20px);
 }
 
 .tab-item {
@@ -121,43 +153,74 @@ body {
   border: none;
   color: var(--ios-label);
   opacity: 0.5;
+  padding: 8px;
+  transition: var(--ios-transition);
 }
 
 .tab-item.active {
   opacity: 1;
   color: var(--emerald);
+  transform: translateY(-2px);
 }
 
 .symbol {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   fill: currentColor;
-}
-/* Запрет масштабирования */
-html {
-  touch-action: manipulation;
-  -webkit-text-size-adjust: 100%;
-}
-
-.input-label {
   display: block;
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 12px 0 4px 16px;
-  font-weight: 500;
 }
 
-/* Анимация ошибки */
-input:invalid {
-  border-color: #FF3B30 !important;
-  animation: shake 0.3s;
-}
-
+/* Анимации */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-4px); }
 }
 
-/* Остальные стили без изменений */
-/* ... */
+input:invalid {
+  border-color: var(--ruby-red) !important;
+  animation: shake 0.4s;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .screen {
+    padding: 56px 12px 88px;
+  }
+  
+  .ios-input, .ios-select {
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  
+  .ios-button {
+    padding: 14px;
+    font-size: 16px;
+  }
+  
+  .symbol {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Графики */
+.chart-container {
+  background: var(--ios-secondary);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.category-item {
+  background: var(--ios-secondary);
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--ios-transition);
+}
