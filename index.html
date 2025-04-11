@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -20,50 +19,54 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
-<body style="background: #FEFEFF;
-            background: linear-gradient(135deg, #007AFF 0%, #F5F5DC 100%);">
-    <div class="screen active" id="mainScreen">
-        <input type="number" step="0.01" id="amount" 
-               inputmode="decimal" 
-               placeholder="Введите сумму, например 12,34"
-               required>
-        <select id="type">
-            <option>Доход</option>
-            <option selected>Расход</option>
-        </select>
-        <select id="category"></select>
-        <button onclick="app.addTransaction()">Добавить</button>
+<body>
+  <div class="screen active" id="mainScreen">
+    <h2>Новая операция</h2>
+    <input type="number" step="0.01" id="amount" 
+           inputmode="decimal" 
+           placeholder="Введите сумму"
+           required>
+    <select id="type">
+      <option>Доход</option>
+      <option selected>Расход</option>
+    </select>
+    <select id="category"></select>
+    <button onclick="app.addTransaction()">Добавить</button>
+  </div>
+
+  <div class="screen" id="statsScreen">
+    <h2>Статистика</h2>
+    <div class="total-cards">
+      <div class="total-card" id="total-income">0 ₽</div>
+      <div class="total-card" id="total-expense">0 ₽</div>
     </div>
     
-    <div class="screen" id="statsScreen">
-        <div class="chart-container">
-          <canvas id="categoryChart"></canvas>
-        </div>
-        <div id="categoryStats"></div>
-        <select id="period" onchange="app.loadStats()">
-          <option value="week">Неделя</option>
-          <option value="month" selected>Месяц</option>
-          <option value="year">Год</option>
-        </select>
-        <div class="total-cards">
-          <div class="total-card" id="total-income">0 ₽</div>
-          <div class="total-card" id="total-expense">0 ₽</div>
-        </div>
-      </div>
+    <select id="period" onchange="app.loadStats()" class="period-select">
+      <option value="week">Неделя</option>
+      <option value="month" selected>Месяц</option>
+      <option value="year">Год</option>
+    </select>
 
-    <div class="nav">
-      <div class="nav-btn active" onclick="app.showScreen('mainScreen')">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M4 11H10V21H4V11ZM14 3H20V21H14V3Z" fill="currentColor"/>
-          </svg>
-          <span>Главная</span>
-      </div>
-      <div class="nav-btn" onclick="app.showScreen('statsScreen')">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M3 13H11V21H3V13ZM13 3H21V21H13V3Z" fill="currentColor"/>
-          </svg>
-          <span>Статистика</span>
-      </div>
+    <div class="chart-container">
+      <canvas id="categoryChart"></canvas>
+    </div>
+    
+    <div id="categoryStats"></div>
+  </div>
+
+  <div class="nav">
+    <div class="nav-btn active" onclick="app.showScreen('mainScreen', event)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M4 11H10V21H4V11ZM14 3H20V21H14V3Z" fill="currentColor"/>
+      </svg>
+      <span>Главная</span>
+    </div>
+    <div class="nav-btn" onclick="app.showScreen('statsScreen', event)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 13H11V21H3V13ZM13 3H21V21H13V3Z" fill="currentColor"/>
+      </svg>
+      <span>Статистика</span>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

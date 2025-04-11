@@ -1,18 +1,14 @@
-/* styles.css */
 :root {
-  /* Новая цветовая палитра из иконки */
-  --accent-color: #34C759;      /* Изумрудно-зеленый (голова утки) */
-  --accent-secondary: #A87D4A;  /* Коричневый (тело утки) */
-  --coin-gold: #FFD700;         /* Золотой (монеты) */
-  --security-blue: #007AFF;     /* Синий (безопасность) */
-  --stability-beige: #F5F5DC;   /* Бежевый (стабильность) */
+  --accent-color: #34C759;
+  --accent-secondary: #A87D4A;
+  --coin-gold: #FFD700;
+  --security-blue: #007AFF;
+  --stability-beige: #F5F5DC;
   
-  /* iOS-специфичные переменные */
   --ios-blur: saturate(180%) blur(20px);
   --ios-border: 0.5px solid;
   --ios-shadow: 0 4px 12px rgba(0,0,0,0.15);
   
-  /* Обновленные базовые цвета */
   --background: #FEFEFF;
   --text-primary: #1D1D1F;
   --text-secondary: #8E8E93;
@@ -20,7 +16,6 @@
   --input-border: rgba(60,60,67,0.29);
 }
 
-/* Темная тема для iOS */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #000000;
@@ -32,36 +27,97 @@
   }
 }
 
-/* iOS-оптимизированные элементы */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-  padding-bottom: constant(safe-area-inset-bottom); /* Для iPhone X+ */
+  padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
+  background: linear-gradient(135deg, var(--security-blue) 0%, var(--stability-beige) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
 }
 
-/* Навигационная панель в стиле iOS */
 .nav {
   height: 83px;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
   background: var(--input-background);
-  border-top: none;
   -webkit-backdrop-filter: var(--ios-blur);
   backdrop-filter: var(--ios-blur);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   font-size: 12px;
   font-weight: 500;
-  letter-spacing: -0.2px;
-  gap: 4px;
+  color: var(--text-secondary);
+  padding: 8px;
+  transition: opacity 0.2s;
 }
 
-/* Кнопки с градиентом как на иконке */
+.nav-btn.active {
+  color: var(--accent-color);
+}
+
+.screen {
+  background: var(--input-background);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 12px;
+  box-shadow: var(--ios-shadow);
+  -webkit-backdrop-filter: var(--ios-blur);
+  backdrop-filter: var(--ios-blur);
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1), 
+              opacity 0.3s ease;
+}
+
+.screen h2 {
+  font-size: 20px;
+  margin: 0 0 20px;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+  border: var(--ios-border) var(--input-border);
+  border-radius: 12px;
+  background: var(--input-background);
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
 button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 12px;
   background: linear-gradient(160deg, var(--accent-color) 20%, var(--security-blue));
+  color: white;
+  border: none;
   border-radius: 14px;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.1s cubic-bezier(.4,0,.2,1);
 }
 
@@ -70,104 +126,98 @@ button:active {
   opacity: 0.9;
 }
 
-/* Поля ввода с эффектом "плавающей тени" */
-input, select {
-  border: var(--ios-border) var(--input-border);
-  background: var(--input-background);
-  -webkit-backdrop-filter: var(--ios-blur);
-  backdrop-filter: var(--ios-blur);
-  box-shadow: var(--ios-shadow);
-}
-
-/* Анимация "подмигивания" для элементов */
-@keyframes wink {
-  0% { transform: scaleY(1); }
-  50% { transform: scaleY(0.8); }
-  100% { transform: scaleY(1); }
-}
-
-.add-success {
-  animation: wink 0.4s ease-in-out;
-}
-
-/* Стилизация монет (для будущих элементов) */
-.coin-icon {
-  background: radial-gradient(circle at 30% 30%, var(--coin-gold) 40%, #daa520);
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
-}
-
-/* Градиентный фон как на иконке */
-body {
-  background: linear-gradient(
-    135deg,
-    var(--security-blue) 0%,
-    var(--stability-beige) 100%
-  );
-  background-attachment: fixed;
-}
-
-.screen {
-  background: var(--input-background);
-  border-radius: 18px;
-  padding: 16px;
-  margin: 16px;
-  box-shadow: var(--ios-shadow);
-  -webkit-backdrop-filter: var(--ios-blur);
-  backdrop-filter: var(--ios-blur);
-}
-
-/* iOS-специфичные анимации */
-@media (prefers-reduced-motion: no-preference) {
-  .screen {
-    transition: transform 0.4s cubic-bezier(.4,0,.2,1), 
-                opacity 0.3s ease;
-  }
-  
-  .screen:not(.active) {
-    transform: translateY(20px);
-    opacity: 0 !important;
-  }
-}
-
-/* Микро-взаимодействия для кнопок */
-button:after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0.1);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-button:active:after {
-  opacity: 1;
-}
-
-/* Адаптация чарта под новый стиль */
-.chart-container {
-  background: var(--input-background);
-  border-radius: 18px;
-  margin: 16px;
-  box-shadow: var(--ios-shadow);
-}
-
 .total-cards {
   display: flex;
   gap: 12px;
-  margin: 16px;
+  margin: 16px 0;
 }
 
 .total-card {
   flex: 1;
-  padding: 16px;
+  padding: 18px;
   background: var(--input-background);
-  border-radius: 12px;
+  border-radius: 16px;
   text-align: center;
   font-weight: 600;
-  box-shadow: var(--ios-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.total-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+#total-income::before {
+  background: var(--accent-color);
+}
+
+#total-expense::before {
+  background: var(--accent-secondary);
 }
 
 .chart-container {
   height: 300px;
   padding: 16px;
+  background: var(--input-background);
+  border-radius: 18px;
+  margin: 16px 0;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+}
+
+.category-progress {
+  flex: 1;
+  height: 6px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.category-progress-bar {
+  height: 100%;
+  background: var(--accent-color);
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 480px) {
+  .nav {
+    height: 70px;
+  }
+  
+  .nav-btn {
+    font-size: 11px;
+  }
+  
+  .screen {
+    margin: 8px;
+    padding: 16px;
+  }
+  
+  .total-card {
+    font-size: 15px;
+    padding: 14px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .category-item {
+    background: rgba(255,255,255,0.05);
+  }
+  
+  .category-progress {
+    background: rgba(255,255,255,0.1);
+  }
 }
