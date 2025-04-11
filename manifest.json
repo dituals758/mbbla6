@@ -2,21 +2,31 @@
   "name": "КрякБюджет",
   "short_name": "КрякБюджет",
   "description": "Персональный менеджер доходов и расходов с очаровательным утёнком",
-  "start_url": "",
+  "start_url": "./",
   "display": "standalone",
   "theme_color": "#34C759",
   "background_color": "#FFFFFF",
+  "orientation": "portrait",
+  "scope": "/",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "description": "Главный экран приложения"
     }
   ]
 }

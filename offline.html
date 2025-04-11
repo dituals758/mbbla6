@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#34C759">
+  <title>Оффлайн режим | КрякБюджет</title>
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    .offline-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .offline-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .retry-button {
+      margin-top: 2rem;
+      width: auto;
+      padding: 0.75rem 2rem;
+    }
+
+    .network-status {
+      margin-top: 1rem;
+      font-size: 0.9em;
+      color: var(--text-secondary);
+    }
+
+    .version-offline {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      font-size: 0.8em;
+      color: var(--text-secondary);
+      background: var(--surface-secondary);
+      padding: 4px 8px;
+      border-radius: 8px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📴</div>
+    <h1>Оффлайн-режим</h1>
+    <p>Для работы приложения требуется подключение к интернету.</p>
+    
+    <button class="ios-button retry-button" onclick="checkConnection()">
+      <span class="symbol">⟳</span>
+      Повторить попытку
+    </button>
+
+    <div class="network-status" id="statusMessage">
+      Проверяем подключение...
+    </div>
+
+    <div class="version-offline" id="versionContainer">
+      Версия: <span id="versionOffline">загрузка...</span>
+    </div>
+  </div>
+
+  <script>
+    function updateStatus(message, isError = false) {
+      const statusEl = document.getElementById('statusMessage');
+      statusEl.textContent = message;
+      statusEl.style.color = isError ? 'var(--danger)' : 'var(--text-primary)';
+    }
+
+    function checkConnection() {
+      updateStatus('Проверяем подключение...');
+      
+      if(navigator.onLine) {
+        setTimeout(() => {
+          window.location.href = './';
+        }, 500);
+      } else {
+        setTimeout(() => {
+          updateStatus('Соединение не восстановлено', true);
+        }, 1500);
+      }
+    }
+
+    // Получение версии из Service Worker
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration()
+        .then(reg => {
+          if(reg) {
+            reg.postMessage({type: 'GET_VERSION'});
+          }
+        });
+
+      navigator.serviceWorker.addEventListener('message', event => {
+        if(event.data.type === 'CURRENT_VERSION') {
+          document.getElementById('versionOffline').textContent = event.data.version;
+        }
+      });
+    }
+
+    // Автопроверка при загрузке
+    checkConnection();
+    
+    window.addEventListener('online', checkConnection);
+    window.addEventListener('offline', () => {
+      updateStatus('Соединение отсутствует', true);
+    });
+  </script>
+</body>
+</html>
