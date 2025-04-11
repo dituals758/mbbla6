@@ -1,245 +1,152 @@
 /* styles.css */
 :root {
-    --accent-color: #34C759;
-    --accent-hover: #2DAE4E;
-    --background: #FFFFFF;
-    --text-primary: #1D1D1F;
-    --text-secondary: #8E8E93;
-    --input-background: #FFFFFF;
-    --input-border: #C7C7CC;
-    --error-color: #FF3B30;
-  }
+  /* Новая цветовая палитра из иконки */
+  --accent-color: #34C759;      /* Изумрудно-зеленый (голова утки) */
+  --accent-secondary: #A87D4A;  /* Коричневый (тело утки) */
+  --coin-gold: #FFD700;         /* Золотой (монеты) */
+  --security-blue: #007AFF;     /* Синий (безопасность) */
+  --stability-beige: #F5F5DC;   /* Бежевый (стабильность) */
   
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #000000;
-      --text-primary: #FFFFFF;
-      --text-secondary: #8E8E93;
-      --input-background: #1C1C1E;
-      --input-border: #38383A;
-    }
-  }
+  /* iOS-специфичные переменные */
+  --ios-blur: saturate(180%) blur(20px);
+  --ios-border: 0.5px solid;
+  --ios-shadow: 0 4px 12px rgba(0,0,0,0.15);
   
-  /* Базовые стили */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  html {
-    touch-action: pan-x pan-y;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-    overscroll-behavior: contain;
-    background: var(--background);
-  }
-  
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-    color: var(--text-primary);
-    margin: 0;
-    padding: 16px 16px 83px;
-    min-height: 100vh;
-    width: 100vw;
-    background: var(--background);
-  }
-  
-  /* Адаптация для альбомной ориентации */
-  @media (orientation: landscape) {
-    body {
-      padding: 16px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .screen {
-      padding-bottom: 0;
-    }
-  }
-  
-  /* Элементы интерфейса */
-  .screen {
-    display: none;
-    max-width: 480px;
-    margin: 0 auto;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .screen.active {
-    display: block;
-    opacity: 1;
-  }
-  
-  input, select {
-    width: 100%;
-    height: 44px;
-    padding: 0 16px;
-    font-size: 16px;
-    border: 1px solid var(--input-border);
-    border-radius: 10px;
-    background: var(--input-background);
-    color: var(--text-primary);
-    margin: 8px 0;
-    transition: border-color 0.2s;
-  }
-  
-  input:focus, select:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(52, 199, 89, 0.1);
-  }
-  
-  button {
-    width: 100%;
-    height: 50px;
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  button:active {
-    background: var(--accent-hover);
-    transform: scale(0.98);
-  }
-  
-  /* Навигация iOS */
-  .nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 83px;
-    background: rgba(255, 255, 255, 0.8);
-    border-top: 1px solid var(--input-border);
-    display: flex;
-    padding: 8px 0;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .nav {
-      background: rgba(28, 28, 30, 0.8);
-    }
-  }
-  
-  .nav-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    transition: all 0.2s;
-  }
-  
-  .nav-btn.active {
-    color: var(--accent-color);
-  }
-  
-  /* Состояния ошибок */
-  input:invalid {
-    border-color: var(--error-color);
-    animation: shake 0.3s;
-  }
-  
-  .error-message {
-    color: var(--error-color);
-    font-size: 13px;
-    padding: 4px 16px;
-  }
-  
-  @keyframes shake {
-    25% { transform: translateX(4px); }
-    50% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-  
-  /* Адаптация для маленьких экранов */
-  @media (max-width: 380px) {
-    body {
-      padding: 12px 12px 83px;
-    }
-    
-    input, select {
-      font-size: 15px;
-    }
-  }
-  /* Статистика */
-.stats-header {
-  padding: 16px;
-  background: var(--background);
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  /* Обновленные базовые цвета */
+  --background: #FEFEFF;
+  --text-primary: #1D1D1F;
+  --text-secondary: #8E8E93;
+  --input-background: rgba(255,255,255,0.8);
+  --input-border: rgba(60,60,67,0.29);
 }
 
-.total-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.total-card {
-  padding: 16px;
-  border-radius: 12px;
-  background: var(--input-background);
-}
-
-.total-card.income .amount {
-  color: var(--accent-color);
-}
-
-.total-card.expense .amount {
-  color: var(--error-color);
-}
-
-.chart-container {
-  padding: 16px;
-  height: 300px;
-}
-
-.category-list {
-  padding: 0 16px 80px;
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 12px;
-  background: var(--input-background);
-  border-radius: 8px;
-}
-
-.category-progress {
-  flex-grow: 1;
-  height: 8px;
-  background: rgba(0,0,0,0.1);
-  border-radius: 4px;
-  margin: 0 12px;
-  overflow: hidden;
-}
-
-.category-progress-bar {
-  height: 100%;
-  background: var(--accent-color);
-  transition: width 0.3s ease;
-}
-
-/* Темная тема */
+/* Темная тема для iOS */
 @media (prefers-color-scheme: dark) {
-  .category-progress {
-    background: rgba(255,255,255,0.1);
+  :root {
+    --background: #000000;
+    --text-primary: #FFFFFF;
+    --text-secondary: #8E8E93;
+    --input-background: rgba(28,28,30,0.8);
+    --input-border: rgba(84,84,88,0.6);
+    --stability-beige: #2C2C2E;
   }
+}
+
+/* iOS-оптимизированные элементы */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  padding-bottom: constant(safe-area-inset-bottom); /* Для iPhone X+ */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Навигационная панель в стиле iOS */
+.nav {
+  height: 83px;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--input-background);
+  border-top: none;
+  -webkit-backdrop-filter: var(--ios-blur);
+  backdrop-filter: var(--ios-blur);
+}
+
+.nav-btn {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  gap: 4px;
+}
+
+/* Кнопки с градиентом как на иконке */
+button {
+  background: linear-gradient(160deg, var(--accent-color) 20%, var(--security-blue));
+  border-radius: 14px;
+  font-weight: 600;
+  transition: all 0.1s cubic-bezier(.4,0,.2,1);
+}
+
+button:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+/* Поля ввода с эффектом "плавающей тени" */
+input, select {
+  border: var(--ios-border) var(--input-border);
+  background: var(--input-background);
+  -webkit-backdrop-filter: var(--ios-blur);
+  backdrop-filter: var(--ios-blur);
+  box-shadow: var(--ios-shadow);
+}
+
+/* Анимация "подмигивания" для элементов */
+@keyframes wink {
+  0% { transform: scaleY(1); }
+  50% { transform: scaleY(0.8); }
+  100% { transform: scaleY(1); }
+}
+
+.add-success {
+  animation: wink 0.4s ease-in-out;
+}
+
+/* Стилизация монет (для будущих элементов) */
+.coin-icon {
+  background: radial-gradient(circle at 30% 30%, var(--coin-gold) 40%, #daa520);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+/* Градиентный фон как на иконке */
+body {
+  background: linear-gradient(
+    135deg,
+    var(--security-blue) 0%,
+    var(--stability-beige) 100%
+  );
+  background-attachment: fixed;
+}
+
+.screen {
+  background: var(--input-background);
+  border-radius: 18px;
+  padding: 16px;
+  margin: 16px;
+  box-shadow: var(--ios-shadow);
+  -webkit-backdrop-filter: var(--ios-blur);
+  backdrop-filter: var(--ios-blur);
+}
+
+/* iOS-специфичные анимации */
+@media (prefers-reduced-motion: no-preference) {
+  .screen {
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1), 
+                opacity 0.3s ease;
+  }
+  
+  .screen:not(.active) {
+    transform: translateY(20px);
+    opacity: 0 !important;
+  }
+}
+
+/* Микро-взаимодействия для кнопок */
+button:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+button:active:after {
+  opacity: 1;
+}
+
+/* Адаптация чарта под новый стиль */
+.chart-container {
+  background: var(--input-background);
+  border-radius: 18px;
+  margin: 16px;
+  box-shadow: var(--ios-shadow);
 }
