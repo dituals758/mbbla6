@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kryakBudget-v4';
+const CACHE_NAME = 'kryakBudget-v4.2';
 const ASSETS = [
   'https://dituals758.github.io/mbbla6/',
   'https://dituals758.github.io/mbbla6/index.html',
@@ -34,7 +34,7 @@ self.addEventListener('fetch', (e) => {
     caches.match(e.request)
       .then(cached => cached || fetch(e.request)
       .catch(() => caches.match('/offline.html'))
-  );
+  ));
 });
 
 self.addEventListener('sync', (e) => {

@@ -133,3 +133,31 @@ body {
   height: 24px;
   fill: currentColor;
 }
+/* Запрет масштабирования */
+html {
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+.input-label {
+  display: block;
+  font-size: 13px;
+  color: #8E8E93;
+  margin: 12px 0 4px 16px;
+  font-weight: 500;
+}
+
+/* Анимация ошибки */
+input:invalid {
+  border-color: #FF3B30 !important;
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Остальные стили без изменений */
+/* ... */

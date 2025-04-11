@@ -43,10 +43,15 @@ const app = {
       button.disabled = true;
       const amount = parseFloat(amountInput.value);
       
+      if (!amountInput.checkValidity()) {
+        throw new Error('Максимум 2 знака после запятой');
+      }
+
+      const amount = parseFloat(amountInput.value.replace(',', '.'));
+      
       if (!amount || amount <= 0) {
         throw new Error('Введите корректную сумму');
       }
-
       const transaction = {
         date: new Date().toISOString(),
         type: document.getElementById('type').value,
