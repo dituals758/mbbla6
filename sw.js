@@ -1,4 +1,4 @@
-const APP_VERSION = '1.1.0';
+const APP_VERSION = '1.1.1';
 const CACHE_NAME = `kryakBudget-${APP_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 const OFFLINE_URL = 'https://dituals758.github.io/mbbla6/offline.html';
