@@ -1,24 +1,23 @@
-const APP_VERSION = '1.0.1';
+const APP_VERSION = '1.0.2';
 const CACHE_NAME = `kryakBudget-${APP_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
-const OFFLINE_URL = './offline.html';
+const OFFLINE_URL = 'https://dituals758.github.io/mbbla6/offline.html';
 const ASSETS = [
-  './',
-  './index.html',
-  './offline.html',
-  './styles.css',
-  './app.js',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './js/config.js',
-  './js/dom-elements.js',
-  './js/state.js',
-  './js/utils.js',
-  './js/service-worker.js',
-  './js/transactions.js',
-  './js/stats.js',
-  './js/ui.js',
-  './js/main.js'
+  'https://dituals758.github.io/mbbla6/',
+  'https://dituals758.github.io/mbbla6/index.html',
+  'https://dituals758.github.io/mbbla6/offline.html',
+  'https://dituals758.github.io/mbbla6/styles.css',
+  'https://dituals758.github.io/mbbla6/icons/icon-192.png',
+  'https://dituals758.github.io/mbbla6/icons/icon-512.png',
+  'https://dituals758.github.io/mbbla6/js/config.js',
+  'https://dituals758.github.io/mbbla6/js/dom-elements.js',
+  'https://dituals758.github.io/mbbla6/js/state.js',
+  'https://dituals758.github.io/mbbla6/js/utils.js',
+  'https://dituals758.github.io/mbbla6/js/service-worker.js',
+  'https://dituals758.github.io/mbbla6/js/transactions.js',
+  'https://dituals758.github.io/mbbla6/js/stats.js',
+  'https://dituals758.github.io/mbbla6/js/ui.js',
+  'https://dituals758.github.io/mbbla6/js/main.js'
 ];
 
 self.addEventListener('install', (event) => {
