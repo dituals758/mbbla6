@@ -1,17 +1,17 @@
 // sw.js
-const CACHE_NAME = 'kryakbudget-v2.0.2';
+const CACHE_NAME = 'kryakbudget-v2.1.0';
 const ASSETS = [
-  // Основные ресурсы
+  // Основные ресурсы (исправлены двойные слеши)
   'https://dituals758.github.io/mbbla6/',
-  'https://dituals758.github.io/mbbla6//index.html',
-  'https://dituals758.github.io/mbbla6//styles.css',
-  'https://dituals758.github.io/mbbla6//app.js',
-  'https://dituals758.github.io/mbbla6//manifest.json',
+  'https://dituals758.github.io/mbbla6/index.html',
+  'https://dituals758.github.io/mbbla6/styles.css',
+  'https://dituals758.github.io/mbbla6/app.js',
+  'https://dituals758.github.io/mbbla6/manifest.json',
   
   // Иконки
-  'https://dituals758.github.io/mbbla6//icon-192.png',
-  'https://dituals758.github.io/mbbla6//icon-512.png',
-  'https://dituals758.github.io/mbbla6//icon-iphone.png',
+  'https://dituals758.github.io/mbbla6/icon-192.png',
+  'https://dituals758.github.io/mbbla6/icon-512.png',
+  'https://dituals758.github.io/mbbla6/icon-iphone.png',
   
   // Внешние ресурсы
   'https://cdn.jsdelivr.net/npm/chart.js',

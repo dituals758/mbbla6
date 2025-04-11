@@ -35,6 +35,22 @@
         <button onclick="app.addTransaction()">Добавить</button>
     </div>
     
+    <div class="screen" id="statsScreen">
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+        <div id="categoryStats"></div>
+        <select id="period" onchange="app.loadStats()">
+          <option value="week">Неделя</option>
+          <option value="month" selected>Месяц</option>
+          <option value="year">Год</option>
+        </select>
+        <div class="total-cards">
+          <div class="total-card" id="total-income">0 ₽</div>
+          <div class="total-card" id="total-expense">0 ₽</div>
+        </div>
+      </div>
+
     <div class="nav">
       <div class="nav-btn active" onclick="app.showScreen('mainScreen')">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

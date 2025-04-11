@@ -4,7 +4,10 @@ const app = {
     init: function() {
       this.setupCategories();
       document.getElementById('type').addEventListener('change', () => this.setupCategories());
-      document.addEventListener('DOMContentLoaded', () => this.setupServiceWorker());
+      document.addEventListener('DOMContentLoaded', () => {
+        this.setupServiceWorker();
+        this.setupUpdateChecks();
+      });
     },
   
     setupServiceWorker: function() {
@@ -72,6 +75,9 @@ const app = {
     sendData: async function(data) {
       const response = await fetch(this.SCRIPT_URL, {
         method: 'POST',
+        headers: { // Добавлен заголовок Content-Type
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(data)
       });
       
@@ -89,7 +95,7 @@ const app = {
         .insertAdjacentElement('afterend', errorDiv);
     },
 
-    showScreen: function(screenId) {
+    showScreen: function(screenId, event) {
       // Скрыть все экраны
       document.querySelectorAll('.screen').forEach(s => {
           s.classList.remove('active');
