@@ -1,7 +1,7 @@
 import { initServiceWorker, handleSWMessages } from './service-worker.js';
 import { initEventListeners, renderCategories, showScreen } from './ui.js';
 import { checkPendingTransactions, addTransaction } from './transactions.js';
-import { loadStats } from './stats.js';
+import { loadStats } from './stats.js'; // Добавлен импорт
 import { updateVersionDisplay } from './utils.js';
 import { state } from './state.js';
 import { CONFIG } from './config.js';
@@ -18,12 +18,15 @@ export const App = {
     updateVersionDisplay();
   },
 
-  addTransaction,
-  loadStats,
-  showScreen
+  addTransaction, // Использует импорт из transactions.js
+  loadStats,       // Использует импорт из stats.js
+  showScreen       // Использует импорт из ui.js
 };
 
-window.App = App
+// Явное присвоение глобальной переменной
+window.App = App;
+
+// Остальной код без изменений...
 
 const initYearSelector = () => {
   const yearSelect = document.querySelector('#yearSelect');

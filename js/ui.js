@@ -1,4 +1,3 @@
-// js/ui.js
 import { DOM } from './dom-elements.js';
 import { state } from './state.js';
 import { loadStats } from './stats.js';
