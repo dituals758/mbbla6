@@ -6,7 +6,7 @@ import { updateVersionDisplay } from './utils.js';
 export const initServiceWorker = () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('sw.js')
+      .register('https://dituals758.github.io/mbbla6/sw.js')
       .catch(console.error);
   }
 };
