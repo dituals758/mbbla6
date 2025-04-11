@@ -1,4 +1,5 @@
-const CACHE_NAME = 'finance-v7.1';
+// sw.js
+const CACHE_NAME = 'finance-v7.1.2';
 const ASSETS = [
   'https://dituals758.github.io/mbbla6/',
   'https://dituals758.github.io/mbbla6/index.html',
