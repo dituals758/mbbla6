@@ -1,223 +1,150 @@
+/* styles.css */
 :root {
-  --accent-color: #34C759;
-  --accent-secondary: #A87D4A;
-  --coin-gold: #FFD700;
-  --security-blue: #007AFF;
-  --stability-beige: #F5F5DC;
-  
-  --ios-blur: saturate(180%) blur(20px);
-  --ios-border: 0.5px solid;
-  --ios-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  
-  --background: #FEFEFF;
-  --text-primary: #1D1D1F;
-  --text-secondary: #8E8E93;
-  --input-background: rgba(255,255,255,0.8);
-  --input-border: rgba(60,60,67,0.29);
+  /* Цвета iOS */
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-red: #FF3B30;
+  --system-gray: #8E8E93;
+  --system-background: #FFFFFF;
+  --secondary-background: #F2F2F7;
+  --label-primary: #1C1C1E;
+  --separator-color: #C6C6C8;
+
+  /* Тени */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
-    --text-primary: #FFFFFF;
-    --text-secondary: #8E8E93;
-    --input-background: rgba(28,28,30,0.8);
-    --input-border: rgba(84,84,88,0.6);
-    --stability-beige: #2C2C2E;
+    --system-background: #000000;
+    --secondary-background: #1C1C1E;
+    --label-primary: #FFFFFF;
+    --separator-color: #38383A;
   }
 }
 
+/* Базовые стили */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
-  background: linear-gradient(135deg, var(--security-blue) 0%, var(--stability-beige) 100%);
-  background-attachment: fixed;
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 
-.nav {
+/* Статус бар iOS */
+.status-bar {
+  height: 44px;
+  background: var(--system-background);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Навигационная панель */
+.ios-tab-bar {
   height: 83px;
-  padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
-  background: var(--input-background);
-  -webkit-backdrop-filter: var(--ios-blur);
-  backdrop-filter: var(--ios-blur);
+  background: var(--system-background);
+  border-top: 0.5px solid var(--separator-color);
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.nav-btn {
+.tab-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  padding: 8px;
-  transition: opacity 0.2s;
+  background: none;
+  border: none;
+  padding: 12px;
+  color: var(--system-gray);
+  font-size: 13px;
 }
 
-.nav-btn.active {
-  color: var(--accent-color);
+.tab-item.active {
+  color: var(--system-blue);
 }
 
+.symbol {
+  font-size: 24px;
+  font-family: "SF Pro Text", "SF Symbols";
+  font-weight: 400;
+}
+
+/* Экраны */
 .screen {
-  background: var(--input-background);
-  border-radius: 20px;
-  padding: 20px;
-  margin: 12px;
-  box-shadow: var(--ios-shadow);
-  -webkit-backdrop-filter: var(--ios-blur);
-  backdrop-filter: var(--ios-blur);
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1), 
-              opacity 0.3s ease;
+  background: var(--system-background);
+  min-height: 100vh;
+  padding: 64px 16px 100px;
+  position: relative;
 }
 
-.screen h2 {
-  font-size: 20px;
-  margin: 0 0 20px;
-  color: var(--text-primary);
-  text-align: center;
-}
-
-input, select {
+.ios-input {
   width: 100%;
-  padding: 14px;
+  padding: 12px 16px;
   margin: 8px 0;
-  border: var(--ios-border) var(--input-border);
-  border-radius: 12px;
-  background: var(--input-background);
-  font-size: 16px;
-  transition: all 0.2s ease;
+  border: 1px solid var(--separator-color);
+  border-radius: 10px;
+  font-size: 17px;
+  background: var(--system-background);
 }
 
-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--accent-color);
-}
-
-select {
+.ios-select {
+  width: 100%;
+  padding: 12px 36px 12px 16px;
+  margin: 8px 0;
+  border: 1px solid var(--separator-color);
+  border-radius: 10px;
   appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
+  background: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='currentColor' d='M7 10l5 5 5-5z'/></svg>") 
+    no-repeat right 12px center/16px;
 }
 
-button {
+.ios-button {
   width: 100%;
   padding: 16px;
-  margin-top: 12px;
-  background: linear-gradient(160deg, var(--accent-color) 20%, var(--security-blue));
+  margin-top: 24px;
+  background: var(--system-blue);
   color: white;
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
+  font-size: 17px;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.1s cubic-bezier(.4,0,.2,1);
-}
-
-button:active {
-  transform: scale(0.96);
-  opacity: 0.9;
-}
-
-.total-cards {
-  display: flex;
-  gap: 12px;
-  margin: 16px 0;
 }
 
 .total-card {
-  flex: 1;
-  padding: 18px;
-  background: var(--input-background);
-  border-radius: 16px;
-  text-align: center;
-  font-weight: 600;
-  position: relative;
-  overflow: hidden;
+  padding: 16px;
+  background: var(--secondary-background);
+  border-radius: 12px;
+  font-size: 17px;
 }
 
 .total-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
+  content: attr(data-symbol);
+  font-family: "SF Symbols";
+  margin-right: 8px;
 }
 
 #total-income::before {
-  background: var(--accent-color);
+  content: "􀖃"; /* Символ роста */
 }
 
 #total-expense::before {
-  background: var(--accent-secondary);
+  content: "􀓶"; /* Символ падения */
 }
 
-.chart-container {
-  height: 300px;
-  padding: 16px;
-  background: var(--input-background);
-  border-radius: 18px;
-  margin: 16px 0;
+/* Анимации */
+@keyframes sf-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.category-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.1);
-}
-
-.category-progress {
-  flex: 1;
-  height: 6px;
-  background: rgba(0,0,0,0.1);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.category-progress-bar {
-  height: 100%;
-  background: var(--accent-color);
-  transition: width 0.5s ease;
-}
-
-@media (max-width: 480px) {
-  .nav {
-    height: 70px;
-  }
-  
-  .nav-btn {
-    font-size: 11px;
-  }
-  
-  .screen {
-    margin: 8px;
-    padding: 16px;
-  }
-  
-  .total-card {
-    font-size: 15px;
-    padding: 14px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .category-item {
-    background: rgba(255,255,255,0.05);
-  }
-  
-  .category-progress {
-    background: rgba(255,255,255,0.1);
-  }
+.screen {
+  animation: sf-fade-in 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
