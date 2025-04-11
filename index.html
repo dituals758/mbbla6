@@ -1,45 +1,62 @@
 <!DOCTYPE html>
-<html lang="ru" style="background: var(--secondary-background)">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#007AFF">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#34C759">
   <title>КрякБюджет</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
-  <!-- Статус бар iOS -->
   <div class="status-bar"></div>
 
+  <!-- Основной экран -->
   <div class="screen active" id="mainScreen">
-    <h2>Управление бюджетом</h2>
-    
-    <div class="form-group">
-      <input type="number" id="amount" placeholder="Сумма" class="ios-input">
+    <div class="header">
+      <h1 class="logo">🦆 КрякБюджет</h1>
+      <div class="balance-card">
+        <span class="symbol">􀖖</span>
+        <span id="currentBalance">0 ₽</span>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <input type="number" id="amount" placeholder="Сумма" class="ios-input" step="0.01">
       <select id="type" class="ios-select">
-        <option>Доход</option>
-        <option>Расход</option>
+        <option value="Доход">Доход</option>
+        <option value="Расход">Расход</option>
       </select>
       <select id="category" class="ios-select"></select>
+      <button class="ios-button" onclick="app.addTransaction()">
+        <span class="button-icon">􀁍</span>
+        Добавить
+      </button>
     </div>
-
-    <button class="ios-button" onclick="app.addTransaction()">Добавить операцию</button>
   </div>
 
+  <!-- Экран статистики -->
   <div class="screen" id="statsScreen">
-    <h2>Статистика</h2>
-    
-    <div class="total-cards">
-      <div class="total-card" id="total-income">􀖂&ensp;0 ₽</div>
-      <div class="total-card" id="total-expense">􀓵&ensp;0 ₽</div>
+    <div class="stats-header">
+      <h2>Аналитика</h2>
+      <select id="period" class="ios-select" onchange="app.loadStats()">
+        <option value="week">Неделя</option>
+        <option value="month">Месяц</option>
+        <option value="year">Год</option>
+      </select>
     </div>
 
-    <select id="period" onchange="app.loadStats()" class="ios-select">
-      <option value="week">Неделя</option>
-      <option value="month">Месяц</option>
-      <option value="year">Год</option>
-    </select>
+    <div class="total-cards">
+      <div class="total-card income">
+        <span class="symbol">􀁷</span>
+        <span id="total-income">0 ₽</span>
+      </div>
+      <div class="total-card expense">
+        <span class="symbol">􀓵</span>
+        <span id="total-expense">0 ₽</span>
+      </div>
+    </div>
 
     <div class="chart-container">
       <canvas id="categoryChart"></canvas>
@@ -48,16 +65,19 @@
     <div class="category-list" id="categoryStats"></div>
   </div>
 
-  <!-- Навигация iOS с SF Symbols -->
+  <!-- Навигация -->
   <nav class="ios-tab-bar">
     <button class="tab-item active" onclick="app.showScreen('mainScreen', event)">
-      <span class="symbol">􀎞</span>
-      <span class="label">Операции</span>
+      <svg class="symbol" viewBox="0 0 24 24">
+        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+      </svg>
+      Операции
     </button>
-    
     <button class="tab-item" onclick="app.showScreen('statsScreen', event)">
-      <span class="symbol">􀫔</span>
-      <span class="label">Аналитика</span>
+      <svg class="symbol" viewBox="0 0 24 24">
+        <path d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.56-4.55c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.49 2.51-1.93 0-1.1-.9-2-2-2z"/>
+      </svg>
+      Аналитика
     </button>
   </nav>
 

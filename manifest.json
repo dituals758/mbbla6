@@ -1,14 +1,11 @@
 {
-  "name": "Финансы",
-  "short_name": "Финансы",
-  "description": "Персональный менеджер доходов и расходов",
-  "start_url": "https://dituals758.github.io/mbbla6/",
-  "scope": "/",
+  "name": "КрякБюджет",
+  "short_name": "КрякБюджет",
+  "description": "Персональный менеджер доходов и расходов с очаровательным утёнком",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
   "theme_color": "#34C759",
-  "categories": ["finance", "productivity"],
+  "background_color": "#FFFFFF",
   "icons": [
     {
       "src": "icon-192.png",
@@ -20,18 +17,6 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    {
-      "src": "icon-iphone.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "apple touch icon"
     }
-  ],
-  "features": [
-    "Cross Platform",
-    "Offline Capabilities",
-    "Fast Loading"
-  ],
-  "related_applications": []
+  ]
 }

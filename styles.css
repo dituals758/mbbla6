@@ -1,58 +1,115 @@
-/* styles.css */
 :root {
-  /* Цвета iOS */
-  --system-blue: #007AFF;
-  --system-green: #34C759;
-  --system-red: #FF3B30;
-  --system-gray: #8E8E93;
-  --system-background: #FFFFFF;
-  --secondary-background: #F2F2F7;
-  --label-primary: #1C1C1E;
-  --separator-color: #C6C6C8;
-
-  /* Тени */
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --emerald: #34C759;
+  --duck-brown: #8B4513;
+  --coin-gold: #FFD700;
+  --security-blue: #007AFF;
+  --stability-beige: #F5F5DC;
+  --ruby-red: #FF3B30;
+  --ios-background: #FFFFFF;
+  --ios-secondary: #F2F2F7;
+  --ios-label: #1C1C1E;
+  --ios-separator: #C6C6C8;
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --system-background: #000000;
-    --secondary-background: #1C1C1E;
-    --label-primary: #FFFFFF;
-    --separator-color: #38383A;
+    --ios-background: #000000;
+    --ios-secondary: #1C1C1E;
+    --ios-label: #FFFFFF;
+    --ios-separator: #38383A;
+    --stability-beige: #2D2D2D;
   }
 }
 
-/* Базовые стили */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, var(--security-blue) 0%, var(--stability-beige) 100%);
+  color: var(--ios-label);
 }
 
-/* Статус бар iOS */
 .status-bar {
   height: 44px;
-  background: var(--system-background);
+  background: var(--ios-background);
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
 }
 
-/* Навигационная панель */
-.ios-tab-bar {
-  height: 83px;
-  padding-bottom: env(safe-area-inset-bottom);
-  background: var(--system-background);
-  border-top: 0.5px solid var(--separator-color);
+.screen {
+  padding: 64px 16px 100px;
+  min-height: 100vh;
+  background: var(--ios-background);
+}
+
+.ios-input, .ios-select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 8px 0;
+  border: 1px solid var(--ios-separator);
+  border-radius: 12px;
+  font-size: 17px;
+  background: var(--ios-secondary);
+}
+
+.ios-button {
+  background: var(--emerald);
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  border: none;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 17px;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.ios-button:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.total-card {
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+  border-radius: 12px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chart-container {
+  background: var(--ios-secondary);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.category-item {
+  background: var(--ios-secondary);
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ios-tab-bar {
+  background: var(--ios-background);
+  border-top: 1px solid var(--ios-separator);
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
 }
 
 .tab-item {
@@ -62,89 +119,17 @@ body {
   gap: 4px;
   background: none;
   border: none;
-  padding: 12px;
-  color: var(--system-gray);
-  font-size: 13px;
+  color: var(--ios-label);
+  opacity: 0.5;
 }
 
 .tab-item.active {
-  color: var(--system-blue);
+  opacity: 1;
+  color: var(--emerald);
 }
 
 .symbol {
-  font-size: 24px;
-  font-family: "SF Pro Text", "SF Symbols";
-  font-weight: 400;
-}
-
-/* Экраны */
-.screen {
-  background: var(--system-background);
-  min-height: 100vh;
-  padding: 64px 16px 100px;
-  position: relative;
-}
-
-.ios-input {
-  width: 100%;
-  padding: 12px 16px;
-  margin: 8px 0;
-  border: 1px solid var(--separator-color);
-  border-radius: 10px;
-  font-size: 17px;
-  background: var(--system-background);
-}
-
-.ios-select {
-  width: 100%;
-  padding: 12px 36px 12px 16px;
-  margin: 8px 0;
-  border: 1px solid var(--separator-color);
-  border-radius: 10px;
-  appearance: none;
-  background: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='currentColor' d='M7 10l5 5 5-5z'/></svg>") 
-    no-repeat right 12px center/16px;
-}
-
-.ios-button {
-  width: 100%;
-  padding: 16px;
-  margin-top: 24px;
-  background: var(--system-blue);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 17px;
-  font-weight: 600;
-}
-
-.total-card {
-  padding: 16px;
-  background: var(--secondary-background);
-  border-radius: 12px;
-  font-size: 17px;
-}
-
-.total-card::before {
-  content: attr(data-symbol);
-  font-family: "SF Symbols";
-  margin-right: 8px;
-}
-
-#total-income::before {
-  content: "􀖃"; /* Символ роста */
-}
-
-#total-expense::before {
-  content: "􀓶"; /* Символ падения */
-}
-
-/* Анимации */
-@keyframes sf-fade-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.screen {
-  animation: sf-fade-in 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
 }
