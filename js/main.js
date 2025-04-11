@@ -1,4 +1,3 @@
-//main.js
 import { initServiceWorker, handleSWMessages } from './service-worker.js';
 import { initEventListeners, renderCategories, showScreen } from './ui.js';
 import { checkPendingTransactions, addTransaction } from './transactions.js';

@@ -1,8 +1,8 @@
 /* Базовые переменные */
 :root {
   /* Цвета */
-  --primary: #34C759;
-  --primary-rgb: 52, 199, 89;
+  --primary: #1F8A3D;;
+  --primary-rgb: 31, 138, 61;
   --danger: #FF3B30;
   --surface: #FFFFFF;
   --surface-secondary: #F2F2F7;
