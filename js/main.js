@@ -1,12 +1,14 @@
+// main.js
 import { initServiceWorker, handleSWMessages } from './service-worker.js';
 import { initEventListeners, renderCategories, showScreen } from './ui.js';
 import { checkPendingTransactions, addTransaction } from './transactions.js';
-import { loadStats } from './stats.js'; // Добавлен импорт
+import { loadStats } from './stats.js';
 import { updateVersionDisplay } from './utils.js';
 import { state } from './state.js';
 import { CONFIG } from './config.js';
 
-export const App = {
+// Создаем глобальный объект App
+const App = {
   init() {
     initServiceWorker();
     initEventListeners();
@@ -17,16 +19,16 @@ export const App = {
     handleSWMessages();
     updateVersionDisplay();
   },
-
-  addTransaction, // Использует импорт из transactions.js
-  loadStats,       // Использует импорт из stats.js
-  showScreen       // Использует импорт из ui.js
+  addTransaction: addTransaction, // Явно присваиваем метод
+  loadStats: loadStats,
+  showScreen: showScreen
 };
 
-// Явное присвоение глобальной переменной
-window.App = App;
+// Экспортируем и делаем глобальным
+export default App;
+window.App = App; // Теперь App доступен глобально
 
-// Остальной код без изменений...
+// Остальной код...
 
 const initYearSelector = () => {
   const yearSelect = document.querySelector('#yearSelect');
