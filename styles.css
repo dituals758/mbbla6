@@ -119,6 +119,7 @@ body {
   color: var(--text-primary);
   transition: var(--transition);
   box-sizing: border-box; 
+}
 
 .ios-select {
   appearance: none;
