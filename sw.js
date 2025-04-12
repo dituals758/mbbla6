@@ -1,4 +1,4 @@
-const APP_VERSION = '1.1.3';
+const APP_VERSION = '1.1.4';
 const CACHE_NAME = `kryakBudget-${APP_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 const OFFLINE_URL = 'https://dituals758.github.io/mbbla6/offline.html';
@@ -7,8 +7,8 @@ const ASSETS = [
   'https://dituals758.github.io/mbbla6/index.html',
   'https://dituals758.github.io/mbbla6/offline.html',
   'https://dituals758.github.io/mbbla6/styles.css',
-  'https://dituals758.github.io/mbbla6/icons/icon-192.png',
-  'https://dituals758.github.io/mbbla6/icons/icon-512.png',
+  'https://dituals758.github.io/mbbla6/icons/icon-182x192.png',
+  'https://dituals758.github.io/mbbla6/icons/icon-504x512.png',
   'https://dituals758.github.io/mbbla6/js/config.js',
   'https://dituals758.github.io/mbbla6/js/dom-elements.js',
   'https://dituals758.github.io/mbbla6/js/state.js',
