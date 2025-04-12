@@ -1,6 +1,5 @@
-// js/utils.js
-import { DOM } from 'https://dituals758.github.io/mbbla6/js/dom-elements.js';
-import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
+import { DOM } from './dom-elements.js';
+import { state } from './state.js';
 
 export const formatCurrency = (value) => {
   return new Intl.NumberFormat('ru-RU', {
