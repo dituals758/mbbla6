@@ -1,7 +1,7 @@
-import { DOM } from './dom-elements.js';
-import { state } from './state.js';
-import { loadStats } from './stats.js';
-import { checkPendingTransactions } from './transactions.js';
+import { DOM } from 'https://dituals758.github.io/mbbla6/js/dom-elements.js';
+import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
+import { loadStats } from 'https://dituals758.github.io/mbbla6/js/stats.js';
+import { checkPendingTransactions } from 'https://dituals758.github.io/mbbla6/js/transactions.js';
 
 export const initEventListeners = () => {
   document.addEventListener('online', handleNetworkChange);

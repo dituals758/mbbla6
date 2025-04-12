@@ -1,9 +1,9 @@
 // js/transactions.js
-import { CONFIG } from './config.js';
-import { DOM } from './dom-elements.js';
-import { state } from './state.js';
-import { formatCurrency, updateVersionDisplay } from './utils.js';
-import { renderChart, renderCategoryDetails } from './stats.js';
+import { CONFIG } from 'https://dituals758.github.io/mbbla6/js/config.js';
+import { DOM } from 'https://dituals758.github.io/mbbla6/js/dom-elements.js';
+import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
+import { formatCurrency, updateVersionDisplay } from 'https://dituals758.github.io/mbbla6/js/utils.js';
+import { renderChart, renderCategoryDetails } from 'https://dituals758.github.io/mbbla6/js/stats.js';
 
 export const addTransaction = async () => {
   const button = document.querySelector('.ios-button');
@@ -20,7 +20,7 @@ export const addTransaction = async () => {
 
     await sendTransaction(transaction);
     amountInput.value = '';
-    showNotification('✅ Успешно сохранено!', 'success');
+    showNotification('✔ Успешно сохранено!', 'success');
     loadStats();
   } catch (error) {
     showNotification(`❌ ${error.message}`, 'error');

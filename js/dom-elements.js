@@ -1,4 +1,3 @@
-// js/dom-elements.js
 export const DOM = {
   amount: '#amount',
   type: '#type',

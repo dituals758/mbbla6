@@ -1,7 +1,6 @@
-// js/service-worker.js
-import { state } from './state.js';
-import { checkPendingTransactions, loadStats } from './transactions.js';
-import { updateVersionDisplay } from './utils.js';
+import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
+import { checkPendingTransactions, loadStats } from 'https://dituals758.github.io/mbbla6/js/transactions.js';
+import { updateVersionDisplay } from 'https://dituals758.github.io/mbbla6/js/utils.js';
 
 export const initServiceWorker = () => {
   if ('serviceWorker' in navigator) {

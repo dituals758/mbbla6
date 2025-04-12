@@ -1,11 +1,11 @@
 // main.js
-import { initServiceWorker, handleSWMessages } from './service-worker.js';
-import { initEventListeners, renderCategories, showScreen } from './ui.js';
-import { checkPendingTransactions, addTransaction } from './transactions.js';
-import { loadStats } from './stats.js';
-import { updateVersionDisplay } from './utils.js';
-import { state } from './state.js';
-import { CONFIG } from './config.js';
+import { initServiceWorker, handleSWMessages } from 'https://dituals758.github.io/mbbla6/js/service-worker.js';
+import { initEventListeners, renderCategories, showScreen } from 'https://dituals758.github.io/mbbla6/js/ui.js';
+import { checkPendingTransactions, addTransaction } from 'https://dituals758.github.io/mbbla6/js/transactions.js';
+import { loadStats } from 'https://dituals758.github.io/mbbla6/js/stats.js';
+import { updateVersionDisplay } from 'https://dituals758.github.io/mbbla6/js/utils.js';
+import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
+import { CONFIG } from 'https://dituals758.github.io/mbbla6/js/config.js';
 
 // Создаем глобальный объект App
 const App = {

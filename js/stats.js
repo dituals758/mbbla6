@@ -1,8 +1,8 @@
-import { CONFIG } from './config.js';
-import { DOM } from './dom-elements.js';
-import { state } from './state.js';
-import { formatCurrency } from './utils.js';
-import { showNotification } from './ui.js';
+import { CONFIG } from 'https://dituals758.github.io/mbbla6/js/config.js';
+import { DOM } from 'https://dituals758.github.io/mbbla6/js/dom-elements.js';
+import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
+import { formatCurrency } from 'https://dituals758.github.io/mbbla6/js/utils.js';
+import { showNotification } from 'https://dituals758.github.io/mbbla6/js/ui.js';
 
 export const loadStats = async () => {
   try {

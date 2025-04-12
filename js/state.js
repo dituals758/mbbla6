@@ -1,4 +1,3 @@
-// js/state.js
 export const state = {
   chartInstance: null,
   pendingTransactions: [],
