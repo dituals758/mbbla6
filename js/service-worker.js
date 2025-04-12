@@ -1,6 +1,7 @@
 import { CONFIG } from './config.js';
 import { state } from './state.js';
-import { checkPendingTransactions, loadStats } from './stats.js';
+import { checkPendingTransactions } from './transactions.js';
+import { loadStats } from './stats.js';
 import { updateVersionDisplay } from './utils.js';
 
 export const initServiceWorker = () => {
