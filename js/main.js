@@ -1,4 +1,5 @@
-import { CONFIG, DOM } from './config.js';
+import { CONFIG } from './config.js';
+import { DOM } from './dom-elements.js';
 import { state } from './state.js';
 import { initServiceWorker, handleSWMessages } from './service-worker.js';
 import { addTransaction, checkPendingTransactions } from './transactions.js';
