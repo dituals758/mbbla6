@@ -1,9 +1,7 @@
-// js/transactions.js
-import { CONFIG } from 'https://dituals758.github.io/mbbla6/js/config.js';
-import { DOM } from 'https://dituals758.github.io/mbbla6/js/dom-elements.js';
-import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
-import { formatCurrency, updateVersionDisplay } from 'https://dituals758.github.io/mbbla6/js/utils.js';
-import { renderChart, renderCategoryDetails } from 'https://dituals758.github.io/mbbla6/js/stats.js';
+import { CONFIG, DOM } from './config.js';
+import { state } from './state.js';
+import { formatCurrency } from './utils.js';
+
 
 export const addTransaction = async () => {
   const button = document.querySelector('.ios-button');

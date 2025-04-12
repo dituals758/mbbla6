@@ -1,3 +1,4 @@
+import { CONFIG } from './config.js';
 export const DOM = {
   amount: '#amount',
   type: '#type',
