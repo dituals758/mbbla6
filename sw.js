@@ -1,4 +1,4 @@
-const APP_VERSION = '1.3.1';
+const APP_VERSION = '1.3.3';
 const CACHE_NAME = `kryakBudget-${APP_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 const OFFLINE_URL = './offline.html';

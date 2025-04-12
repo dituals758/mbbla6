@@ -51,10 +51,10 @@
         class="ios-input"
         inputmode="decimal"
         pattern="^\d+([,]\d{1,2})?$"
-        placeholder="0,00"
+        placeholder="Введите сумму, например: 12,34"
         required
         aria-describedby="amountHint">
-      <div id="amountHint" class="hint-text">Используйте запятую для копеек</div>
+      <!-- <div id="amountHint" class="hint-text">Используйте запятую для копеек</div> -->
 
     <form class="form-container" onsubmit="event.preventDefault(); App.addTransaction();">
       <label class="input-label" for="type">Тип операции</label>

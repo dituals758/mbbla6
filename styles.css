@@ -118,7 +118,7 @@ body {
   background: var(--surface-secondary);
   color: var(--text-primary);
   transition: var(--transition);
-}
+  box-sizing: border-box; 
 
 .ios-select {
   appearance: none;
@@ -244,11 +244,24 @@ body {
   align-items: center;
   gap: 1rem;
   background: var(--surface-secondary);
+  border-left: none;
+  position: relative;
 }
 
 .summary-card.income { border-left: 4px solid var(--primary); }
 .summary-card.expense { border-left: 4px solid var(--danger); }
 .summary-card.balance { border-left: 4px solid #FFD700; }
+
+.summary-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10%;
+  bottom: 10%;
+  width: 3px;
+  background: currentColor;
+  border-radius: 2px;
+}
 
 .symbol {
   font-size: 1.5rem;

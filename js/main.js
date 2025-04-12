@@ -59,10 +59,10 @@ const initYearSelector = () => {
     });
 };
 
-document.addEventListener('gesturestart', (e) => {
-  e.preventDefault();
-  alert('Масштабирование отключено');
-});
+// document.addEventListener('gesturestart', (e) => {
+//   e.preventDefault();
+//   alert('Масштабирование отключено');
+// }); Лучше не использовать. Alert бесит и мешает 
 const loadInitialData = () => {
   loadStats();
 };
