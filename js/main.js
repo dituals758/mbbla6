@@ -4,7 +4,8 @@ import { state } from './state.js';
 import { initServiceWorker, handleSWMessages } from './service-worker.js';
 import { addTransaction, checkPendingTransactions } from './transactions.js';
 import { loadStats } from './stats.js';
-import { showScreen, updateVersionDisplay } from './ui.js';
+import { showScreen } from './ui.js';
+import { updateVersionDisplay } from './utils.js';
 import { renderCategories } from './ui.js';
 
 const App = {
