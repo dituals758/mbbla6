@@ -1,5 +1,5 @@
 import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
-import { checkPendingTransactions, loadStats } from 'https://dituals758.github.io/mbbla6/js/transactions.js';
+import { checkPendingTransactions, loadStats } from 'https://dituals758.github.io/mbbla6/js/stats.js';
 import { updateVersionDisplay } from 'https://dituals758.github.io/mbbla6/js/utils.js';
 
 export const initServiceWorker = () => {
