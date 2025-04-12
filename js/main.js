@@ -59,6 +59,10 @@ const initYearSelector = () => {
     });
 };
 
+document.addEventListener('gesturestart', (e) => {
+  e.preventDefault();
+  alert('Масштабирование отключено');
+});
 const loadInitialData = () => {
   loadStats();
 };
