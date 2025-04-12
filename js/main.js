@@ -1,7 +1,10 @@
 import { CONFIG, DOM } from './config.js';
 import { state } from './state.js';
-import { initServiceWorker } from './service-worker.js';
-import { addTransaction } from './transactions.js';
+import { initServiceWorker, handleSWMessages } from './service-worker.js';
+import { addTransaction, checkPendingTransactions } from './transactions.js';
+import { loadStats } from './stats.js';
+import { showScreen, updateVersionDisplay } from './ui.js';
+import { renderCategories } from './ui.js';
 
 const App = {
   init() {
@@ -14,17 +17,18 @@ const App = {
     handleSWMessages();
     updateVersionDisplay();
   },
-  addTransaction
+  addTransaction,
+  showScreen
 };
 
-// Экспортируем и делаем глобальным
-export default App;
-window.App = App; // Теперь App доступен глобально
-
-// Остальной код...
+const initEventListeners = () => {
+  document.querySelector(DOM.amount).addEventListener('keypress', e => {
+    if (e.key === 'Enter') App.addTransaction();
+  });
+};
 
 const initYearSelector = () => {
-  const yearSelect = document.querySelector('#yearSelect');
+  const yearSelect = document.querySelector(DOM.yearSelect);
   if (!yearSelect) return;
 
   yearSelect.innerHTML = '<option value="all">Все годы</option>';
@@ -61,3 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
   App.init();
   App.showScreen('mainScreen');
 });
+
+export default App;
+window.App = App;

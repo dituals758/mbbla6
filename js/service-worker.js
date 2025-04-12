@@ -1,13 +1,13 @@
 import { CONFIG } from './config.js';
-// import { state } from 'https://dituals758.github.io/mbbla6/js/state.js';
-// import { checkPendingTransactions, loadStats } from 'https://dituals758.github.io/mbbla6/js/stats.js';
-// import { updateVersionDisplay } from 'https://dituals758.github.io/mbbla6/js/utils.js';
+import { state } from './state.js';
+import { checkPendingTransactions, loadStats } from './stats.js';
+import { updateVersionDisplay } from './utils.js';
 
 export const initServiceWorker = () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('https://dituals758.github.io/mbbla6/sw.js')
-      .catch(console.error);
+      .register('sw.js')
+      .catch(error => console.error('SW registration failed:', error));
   }
 };
 

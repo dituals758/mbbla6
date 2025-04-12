@@ -7,7 +7,7 @@ export const formatCurrency = (value) => {
     currency: 'RUB',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  }).format(value).replace('₽', '₽');
+  }).format(value);
 };
 
 export const updateVersionDisplay = (version = null) => {

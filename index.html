@@ -7,9 +7,18 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>КрякБюджет</title>
   <link rel="stylesheet" href="./styles.css">
-  <link rel="manifest" href="https://dituals758.github.io/mbbla6/manifest.json">
-  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon-192x192.png" type="image/png">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="./js/config.js"></script>
+  <script type="module" src="./js/dom-elements.js"></script>
+  <script type="module" src="./js/state.js"></script>
+  <script type="module" src="./js/utils.js"></script>
+  <script type="module" src="./js/stats.js"></script>
+  <script type="module" src="./js/transactions.js"></script>
+  <script type="module" src="./js/service-worker.js"></script>
+  <script type="module" src="./js/ui.js"></script>
+  <script type="module" src="./js/main.js"></script>
 </head>
 <body>
   <div class="status-bar" aria-hidden="true"></div>
@@ -28,6 +37,15 @@
     </header>
 
     <form class="form-container" onsubmit="event.preventDefault(); App.addTransaction();">
+      <label class="input-label" for="type">Тип операции</label>
+      <select id="type" class="ios-select">
+        <option value="income">Доход</option>
+        <option value="expense">Расход</option>
+      </select>
+
+      <label class="input-label" for="category">Категория</label>
+      <select id="category" class="ios-select"></select>
+
       <label class="input-label" for="amount">Сумма</label>
       <input 
         type="text" 
@@ -39,15 +57,6 @@
         required
         aria-describedby="amountHint">
       <div id="amountHint" class="hint-text">Используйте запятую для копеек</div>
-
-      <label class="input-label" for="type">Тип операции</label>
-      <select id="type" class="ios-select">
-        <option value="income">Доход</option>
-        <option value="expense">Расход</option>
-      </select>
-
-      <label class="input-label" for="category">Категория</label>
-      <select id="category" class="ios-select"></select>
 
       <button type="submit" class="ios-button">
         <span class="button-content">
@@ -178,14 +187,5 @@
     Версия: <span id="appVersion">загрузка...</span>
   </div>
 
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/config.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/dom-elements.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/state.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/utils.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/service-worker.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/transactions.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/stats.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/ui.js"></script>
-  <script type="module" src="https://dituals758.github.io/mbbla6/js/main.js"></script>
 </body>
 </html>

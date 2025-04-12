@@ -1,7 +1,9 @@
-import { CONFIG, DOM } from './config.js';
+import { CONFIG } from './config.js';
+import { DOM } from './dom-elements.js';
 import { state } from './state.js';
 import { formatCurrency } from './utils.js';
-
+import { showNotification } from './ui.js';
+import { loadStats } from './stats.js';
 
 export const addTransaction = async () => {
   const button = document.querySelector('.ios-button');
