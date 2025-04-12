@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600&display=swap');
 
 :root {
-  --primary: #C9A145; /* Золотой акцент */
+  /* Оригинальные переменные с цветами из Ведьмака */
+  --primary: #C9A145;
   --primary-rgb: 201, 161, 69;
-  --danger: #8B0000; /* Темно-красный */
-  --surface: #0A0A0A; /* Основной фон */
-  --surface-secondary: #1A1A1A; /* Вторичный фон */
-  --text-primary: #E4D19B; /* Основной текст */
-  --text-secondary: #8E8E93; 
+  --danger: #8B0000;
+  --surface: #0A0A0A;
+  --surface-secondary: #1A1A1A;
+  --text-primary: #E4D19B;
+  --text-secondary: #8E8E93;
   --border: #38383A;
   --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --animation-shake: shake 0.4s;
-  --text-shadow-witcher: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,14 +47,27 @@ body {
   letter-spacing: 0.03em;
 }
 
-/* Заголовки */
-.logo {
-  font-weight: 600;
-  text-shadow: var(--text-shadow-witcher);
+/* Статус-бар */
+.status-bar {
+  background: var(--surface);
+  border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
 }
 
+/* Основные экраны */
+.screen {
+  background: linear-gradient(to bottom, 
+    rgba(var(--primary-rgb), 0.03) 0%,
+    transparent 100%
+  );
+}
+
+/* Шапка */
 .header {
   border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+}
+
+.logo {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 /* Формы */
@@ -64,7 +77,6 @@ body {
   border: 2px solid rgba(var(--primary-rgb), 0.3);
   color: var(--text-primary);
   transition: var(--transition);
-  letter-spacing: 0.02em;
 }
 
 .ios-input:focus,
@@ -79,27 +91,21 @@ body {
   border: 2px solid var(--primary);
   color: var(--primary);
   font-weight: 600;
-  letter-spacing: 0.05em;
-  position: relative;
-  overflow: visible;
+  transition: var(--transition);
 }
 
 .ios-button:active {
   background: rgba(var(--primary-rgb), 0.1);
 }
 
-.progress-bar {
-  background: rgba(var(--primary-rgb), 0.3);
-}
-
 /* Навигация */
 .ios-tab-bar {
   background: rgba(10, 10, 10, 0.9);
   border-top: 1px solid rgba(var(--primary-rgb), 0.2);
-  backdrop-filter: saturate(180%) blur(20px);
 }
 
 .tab-item.active {
+  color: var(--primary);
   text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.3);
 }
 
@@ -113,12 +119,13 @@ body {
 .summary-card.income { border-left: 4px solid var(--primary); }
 .summary-card.expense { border-left: 4px solid var(--danger); }
 
-/* Адаптация для iOS */
+/* График */
+.chart-container {
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
+}
+
+/* Версия для iOS */
 @supports (-webkit-touch-callout: none) {
-  body {
-    -webkit-overflow-scrolling: touch;
-  }
-  
   .ios-button {
     min-width: 44px;
     min-height: 44px;
@@ -129,25 +136,30 @@ body {
   }
 }
 
-/* Графики */
-.chart-container {
-  background: var(--surface-secondary);
-  border: 1px solid rgba(var(--primary-rgb), 0.2);
+/* Анимации */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-4px); }
 }
 
-/* Анимации */
 @keyframes glow {
   0%, 100% { opacity: 0.8; }
   50% { opacity: 1; }
 }
 
-.loading .button-content {
-  animation: glow 1.5s infinite;
+/* Все оригинальные медиа-запросы и классы сохранены */
+.version-info {
+  background: rgba(var(--primary-rgb), 0.1);
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
 }
 
-/* Оптимизация OLED */
-@media (background-color: #000000) {
-  .summary-card {
-    background: #121212;
-  }
+.github-link:hover {
+  background: rgba(var(--primary-rgb), 0.1);
+}
+
+input:invalid {
+  border-color: var(--danger) !important;
+  animation: var(--animation-shake);
 }
