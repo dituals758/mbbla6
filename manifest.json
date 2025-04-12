@@ -1,13 +1,13 @@
 {
   "name": "КрякБюджет",
   "short_name": "КрякБюджет",
-  "description": "Персональный менеджер доходов и расходов с очаровательным утёнком",
-  "start_url": "./",
+  "description": "Персональный менеджер доходов и расходов с очаровательным утёнком 🦆",
+  "start_url": "https://dituals758.github.io/mbbla6/",
   "display": "standalone",
   "theme_color": "#34C759",
   "background_color": "#FFFFFF",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "https://dituals758.github.io/mbbla6/",
   "icons": [
     {
       "src": "./icons/icon-182x192.png",
