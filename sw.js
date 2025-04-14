@@ -1,4 +1,4 @@
-const APP_VERSION = '1.3.5 a Witcher 3 style';
+const APP_VERSION = '1.3.6';
 const CACHE_NAME = `kryakBudget-${APP_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 const OFFLINE_URL = './offline.html';
