@@ -1,156 +1,73 @@
-:root {
-  --primary: #1F8A3D;
-  --primary-rgb: 31, 138, 61;
-  --danger: #FF3B30;
-  --surface: #FFFFFF;
-  --surface-secondary: #F2F2F7;
-  --text-primary: #1C1C1E;
-  --text-secondary: #8E8E93;
-  --border: #C6C6C8;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  --animation-shake: shake 0.4s;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --surface: #000000;
-    --surface-secondary: #1C1C1E;
-    --text-primary: #FFFFFF;
-    --text-secondary: #8E8E93;
-    --border: #38383A;
-  }
-  .ios-select {
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-  }
-}
-
-html, body {
-  height: 100%;
-  margin: 0;
-  touch-action: manipulation;
-}
-
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--surface);
-  color: var(--text-primary);
-  line-height: 1.6;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  overscroll-behavior: contain;
-}
-
-/* Компоненты */
-.status-bar,
-.ios-tab-bar {
-  background: var(--surface);
-  position: fixed;
-  width: 100%;
-  z-index: 1000;
-}
-
-.status-bar {
-  height: 44px;
-  top: 0;
-}
-
-.screen {
-  flex: 1;
-  padding: 64px 16px 84px;
-  overflow-y: auto;
-  transition: opacity 0.3s ease;
-  opacity: 0;
-  display: none;
-}
-
-.screen.active {
-  display: block;
-  opacity: 1;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
-/* Формы и инпуты */
-.ios-input,
-.ios-select {
-  width: 100%;
-  padding: 1rem;
-  margin: 0.5rem 0;
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  font-size: 1rem;
-  background: var(--surface-secondary);
-  color: var(--text-primary);
-  transition: var(--transition);
-  box-sizing: border-box;
+label {
+  margin-top: 10px;
+  font-weight: bold;
 }
 
-.ios-select {
-  appearance: none;
-  background: var(--surface-secondary) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%238E8E93'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 1rem center/1em;
+input {
+  padding: 10px;
+  margin-top: 5px;
+  width: 80%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.ios-button {
-  background: var(--primary);
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #007bff;
   color: white;
-  padding: 1rem;
-  border-radius: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#transactionsList {
+  margin-top: 20px;
+  list-style-type: none;
+  padding: 0;
+}
+
+#transactionsList li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
   width: 100%;
-  font-size: 1rem;
-  transition: var(--transition);
+  max-width: 300px;
+  text-align: left;
 }
 
-/* Навигация */
-.ios-tab-bar {
-  height: 49px;
-  bottom: 0;
-  border-top: 0.5px solid var(--border);
-  display: flex;
-  justify-content: space-around;
-  padding: 8px 0;
-  backdrop-filter: blur(20px);
-}
-
-/* Адаптивность */
-@media (max-width: 480px) {
-  .screen {
-    padding: 56px 12px 72px;
-  }
-  .logo {
-    font-size: 1.25rem;
-  }
-}
-
-/* Общие стили */
-[class*="-card"] {
-  background: var(--surface-secondary);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* Анимации */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-4px); }
-}
-
-input:invalid {
-  border-color: var(--danger);
-  animation: var(--animation-shake);
+#transactionsList li:last-child {
+  border-bottom: none;
 }

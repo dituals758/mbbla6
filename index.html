@@ -1,260 +1,35 @@
 <!DOCTYPE html>
-<html lang="ru" dir="ltr">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" 
-  content="width=device-width, 
-          initial-scale=1.0, 
-          maximum-scale=1.0, 
-          minimum-scale=1.0, 
-          user-scalable=no, 
-          shrink-to-fit=no, 
-          viewport-fit=cover">
-  <meta name="theme-color" content="#34C759">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <title>КрякБюджет</title>
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="manifest" href="./manifest.json">
-  <link rel="icon" href="./icons/icon-192x192.png" type="image/png">
-  <link rel="apple-touch-icon" href="./icons/icon-180.png">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script type="module" src="./js/config.js"></script>
-  <script type="module" src="./js/dom-elements.js"></script>
-  <script type="module" src="./js/state.js"></script>
-  <script type="module" src="./js/utils.js"></script>
-  <script type="module" src="./js/stats.js"></script>
-  <script type="module" src="./js/transactions.js"></script>
-  <script type="module" src="./js/service-worker.js"></script>
-  <script type="module" src="./js/ui.js"></script>
-  <script type="module" src="./js/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting App</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="manifest" href="./manifest.json">
+    <script defer src="./app.js"></script>
 </head>
 <body>
-  <div class="status-bar" aria-hidden="true"></div>
-
-  <!-- Основной экран -->
-  <div class="screen active" id="mainScreen">
-    <header class="header">
-      <div class="logo-container">
-        <h1 class="logo">🦆 КрякБюджет</h1>
-        <p class="slogan">Запиши финансы, пока твой бюджет не крякнул!</p>
-      </div>
-      <!-- <div class="balance-card">
-        <span class="symbol">₽</span>
-        <span id="currentBalance">0,00 ₽</span>
-      </div> -->
-    </header>
-
-    <label class="input-label" for="amount">Сумма</label>
-      <input 
-        type="text" 
-        id="amount"
-        class="ios-input"
-        inputmode="decimal"
-        pattern="^\d+([,]\d{1,2})?$"
-        placeholder="Введите сумму, например: 12,34"
-        required
-        aria-describedby="amountHint">
-      <!-- <div id="amountHint" class="hint-text">Используйте запятую для копеек</div> -->
-
-    <form class="form-container" onsubmit="event.preventDefault(); App.addTransaction();">
-      <label class="input-label" for="type">Тип операции</label>
-      <select id="type" class="ios-select">
-        <option value="income">Доход</option>
-        <option value="expense">Расход</option>
-      </select>
-
-      <label class="input-label" for="category">Категория</label>
-      <select id="category" class="ios-select"></select>
-
-          <button type="submit" class="ios-button">
-        <span class="button-content">
-          <span class="button-icon">+</span>
-          Добавить транзакцию
-        </span>
-        <span class="progress-bar"></span>
-      </button>
-    </form>
-  </div>
-
-  <!-- Экран статистики -->
-  <div class="screen" id="statsScreen">
-    <div class="stats-header">
-      <h2>Аналитика</h2>
-      <div class="period-selectors">
-        <select id="yearSelect" class="ios-select" onchange="App.loadStats()">
-          <option value="all">Все годы</option>
-        </select>
-        <select id="monthSelect" class="ios-select" onchange="App.loadStats()">
-          <option value="all">Все месяцы</option>
-          <option value="01">Январь</option>
-          <option value="02">Февраль</option>
-          <option value="03">Март</option>
-          <option value="04">Апрель</option>
-          <option value="05">Май</option>
-          <option value="06">Июнь</option>
-          <option value="07">Июль</option>
-          <option value="08">Август</option>
-          <option value="09">Сентябрь</option>
-          <option value="10">Октябрь</option>
-          <option value="11">Ноябрь</option>
-          <option value="12">Декабрь</option>
-        </select>
-      </div>
+    <div id="app" aria-label="Budgeting App Application">
+        <header>
+            <h1>Budgeting App</h1>
+        </header>
+        <main>
+            <section>
+                <h2>Add Transaction</h2>
+                <form id="transactionForm" aria-label="Transaction Form">
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description" aria-label="Transaction Description" required>
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" aria-label="Transaction Amount" step="0.01" required>
+                    <button type="submit" aria-label="Submit Transaction">Submit</button>
+                </form>
+                <div id="error" aria-live="polite" style="color: red;"></div>
+            </section>
+            <section>
+                <h2>Transactions</h2>
+                <ul id="transactionsList" aria-label="List of Transactions"></ul>
+            </section>
+        </main>
     </div>
-
-    <div class="summary-cards grid">
-      <div class="summary-card income">
-        <span class="symbol">↑</span>
-        <div>
-          <h3>Доходы</h3>
-          <span id="totalIncome">0,00 ₽</span>
-        </div>
-      </div>
-      
-      <div class="summary-card expense">
-        <span class="symbol">↓</span>
-        <div>
-          <h3>Расходы</h3>
-          <span id="totalExpense">0,00 ₽</span>
-        </div>
-      </div>
-      
-      <div class="summary-card balance">
-        <span class="symbol">⚖️</span>
-        <div>
-          <h3>Сальдо</h3>
-          <span id="totalBalance">0,00 ₽</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="chart-section grid">
-      <div class="chart-container">
-        <canvas id="categoryChart"></canvas>
-      </div>
-      <div class="category-list" id="categoryDetails"></div>
-    </div>
-  </div>
-
-  <!-- Экран "О приложении" -->
-  <div class="screen" id="aboutScreen">
-    <div class="about-container">
-      <h2>🦆 КрякБюджет</h2>
-      
-      <!-- Блок с версией и авторством -->
-      <div class="info-card">
-        <p>Версия: <span id="versionInfo">загрузка...</span></p>
-        <p>Автор: dituals758</p>
-        
-        <!-- Ссылка на GitHub с иконкой -->
-        <a href="https://github.com/dituals758/mbbla6" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   class="github-link"
-   aria-label="Исходный код на GitHub">
-  <svg class="symbol" 
-       viewBox="0 0 24 24" 
-       role="img" 
-       aria-hidden="true"
-       style="width:20px;height:20px;">
-    <title>GitHub Repository</title>
-    <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
-  </svg>
-  Исходный код на GitHub
-</a>
-  
-        <!-- Блок с атрибуцией иконки -->
-        <div class="attribution">
-          <p>Иконка приложения:
-            <span class="icon-credits">
-              Создана в Шедеврум — приложение от «Яндекса», работающее на основе нейросети YandexGPT или YaGPT
-              <a href="https://shedevrum.ai" 
-                 target="_blank" 
-                 rel="noopener noreferrer">
-                Shedevrum.ai
-              </a>, 
-              обработана в 
-              <a href="https://www.gimp.org" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 class="gimp-link">
-                GIMP
-              </a>
-            </span>
-            <br>(лицензия CC BY-NC 4.0)
-          </p>
-        </div>
-      </div>
-  
-      <!-- Блок с возможностями -->
-      <div class="info-card">
-        <h3>Возможности:</h3>
-        <ul>
-          <li>Учет доходов и расходов</li>
-          <li>Оффлайн-работа</li>
-          <li>Визуальная аналитика</li>
-          <li>Автоматическое обновление</li>
-        </ul>
-      </div>
-  
-      <!-- Блок с лицензионной информацией -->
-      <div class="info-card license-info">
-        <h3>Используемые ресурсы и инструменты:</h3>
-        <ul>
-          <li>Графический редактор: 
-            <a href="https://www.gimp.org" 
-               target="_blank" 
-               rel="noopener noreferrer">
-              GIMP 3.0.2
-            </a>
-          </li>
-          <li>Шрифты: 
-            <a href="https://fonts.google.com" 
-               target="_blank" 
-               rel="noopener noreferrer">
-              Google Fonts
-            </a>
-          </li>
-          <li>UI-иконки: 
-            <a href="https://fonts.google.com/icons" 
-               target="_blank" 
-               rel="noopener noreferrer">
-              Material Icons
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- Навигация -->
-  <nav class="ios-tab-bar">
-    <button class="tab-item active" data-screen="mainScreen" onclick="App.showScreen('mainScreen')">
-      <svg class="symbol" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-      </svg>
-      Операции
-    </button>
-    
-    <button class="tab-item" data-screen="statsScreen" onclick="App.showScreen('statsScreen')">
-      <svg class="symbol" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M21 8c-1.45 0-2.26 1.44-1.93 2.51l-3.55 3.56c-.3-.09-.74-.09-1.04 0l-2.55-2.55C12.27 10.45 11.46 9 10 9c-1.45 0-2.27 1.44-1.93 2.52l-4.56 4.55C2.44 15.74 1 16.55 1 18c0 1.1.9 2 2 2 1.45 0 2.26-1.44 1.93-2.51l4.56-4.55c.3.09.74.09 1.04 0l2.55 2.55C12.73 16.55 13.54 18 15 18c1.45 0 2.27-1.44 1.93-2.52l3.56-3.55c1.07.33 2.51-.49 2.51-1.93 0-1.1-.9-2-2-2z"/>
-      </svg>
-      Аналитика
-    </button>
-
-    <button class="tab-item" data-screen="aboutScreen" onclick="App.showScreen('aboutScreen')">
-      <svg class="symbol" viewBox="0 0 24 24">
-        <path fill="currentColor" d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/>
-      </svg>
-      О приложении
-    </button>
-  </nav>
-
-  <!-- <div class="version-info">
-    Версия: <span id="appVersion">загрузка...</span>
-  </div> -->
-
 </body>
 </html>
