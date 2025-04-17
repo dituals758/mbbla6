@@ -1,61 +1,68 @@
 {
   "name": "КрякБюджет",
-  "short_name": "КрякБюджет",
-  "description": "Персональный менеджер доходов и расходов с очаровательным утёнком 🦆",
+  "short_name": "БюджетУтка",
+  "description": "Персональный менеджер доходов и расходов с аналитикой 🦆",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "theme_color": "#34C759",
   "background_color": "#FFFFFF",
-  "orientation": "portrait",
-  "scope": "./",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity"],
+  "lang": "ru-RU",
   "icons": [
     {
-      "src": "./icons/icon-48x48.webp",
+      "src": "./icons/icon-48.png",
       "sizes": "48x48",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-72x72.webp",
+      "src": "./icons/icon-72.png",
       "sizes": "72x72",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-96x96.webp",
+      "src": "./icons/icon-96.png",
       "sizes": "96x96",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-128x128.webp",
+      "src": "./icons/icon-128.png",
       "sizes": "128x128",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-144x144.webp",
+      "src": "./icons/icon-144.png",
       "sizes": "144x144",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-152x152.webp",
+      "src": "./icons/icon-152.png",
       "sizes": "152x152",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-192x192.webp",
+      "src": "./icons/icon-72.png",
       "sizes": "192x192",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-256x256.webp",
+      "src": "./icons/icon-256.png",
       "sizes": "256x256",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-384x384.webp",
+      "src": "./icons/icon-384.png",
       "sizes": "384x384",
       "type": "image/webp"
     },
     {
-      "src": "./icons/icon-512x512.webp",
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/webp"
+    },
+    {
+      "src": "./icons/icon-1024.png",
       "sizes": "512x512",
       "type": "image/webp"
     }

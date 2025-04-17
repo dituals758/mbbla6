@@ -1,4 +1,4 @@
-const APP_VERSION = '1.3.6';
+const APP_VERSION = '1.3.7';
 const CACHE_NAME = `kryakBudget-${APP_VERSION}`;
 const RUNTIME_CACHE = 'runtime-cache';
 const OFFLINE_URL = './offline.html';
@@ -7,16 +7,16 @@ const ASSETS = [
   './index.html',
   './offline.html',
   './styles.css',
-  './icons/icon-128x128.webp',
-  './icons/icon-144x144.webp',
-  './icons/icon-152x152.webp',
-  './icons/icon-192x192.webp',
-  './icons/icon-256x256.webp',
-  './icons/icon-384x384.webp',
-  './icons/icon-48x48.webp',
-  './icons/icon-512x512.webp',
-  './icons/icon-72x72.webp',
-  './icons/icon-96x96.webp',
+  './icons/icon-48.png',
+  './icons/icon-72.png',
+  './icons/icon-96.png',
+  './icons/icon-128.png',
+  './icons/icon-144.png',
+  './icons/icon-152.png',
+  './icons/icon-180.png',
+  './icons/icon-192.png',
+  './icons/icon-256.png',
+  './icons/icon-512.png',
   './js/config.js',
   './js/dom-elements.js',
   './js/state.js',

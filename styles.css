@@ -362,3 +362,24 @@ input:invalid {
 input, textarea {
   touch-action: auto !important;
 }
+
+.attribution {
+  font-size: 0.9em;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.icon-credits a {
+  color: #2c3e50;
+  text-decoration: underline dotted;
+}
+
+.gimp-link {
+  font-weight: bold;
+  color: #6a9c23;
+}
+
+.license-info ul {
+  list-style-type: circle;
+  padding-left: 1.5rem;
+}
