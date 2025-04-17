@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Sanitize input
         const sanitizedDescription = encodeURIComponent(description);
 
-        fetch('https://script.google.com/macros/s/your-script-id/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbxTy8SEdp91qYJET71cto0yhCuoA0q-y5AJkVIKIKzwgLpT_dIgGA-AesxiQRldaYyivg/exec'', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
